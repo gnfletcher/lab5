@@ -48,10 +48,37 @@ public class Sort {
 
 	public static Comparable[] insertionSort(Comparable[] array) {
 		Comparable p = array[0];
+		Comparable[] unsorted = array;
+		Comparable[] sorted = new Comparable[array.length];
 		boolean unordered = false;
-		do{
-			
-		}while (unordered);
+		do {
+			for (int i = 0; i < unsorted.length; i++) {
+				p = unsorted[i];
+				if (p.compareTo(unsorted[i]) < 0) {
+					if (sorted.length == 0) {
+						sorted[0] = array[i];
+					} else {
+						for (int j = 0; j < sorted.length; j++) {
+							if (array[i].compareTo(sorted[j]) > 0) {
+								Comparable[] temp = new Comparable[array.length];
+								for (int q = 0; q < sorted.length - 1; q++) {
+									temp[q] = sorted[j + q];
+								}
+								sorted[j] = unsorted[i];
+								for (int q = 0; q < sorted.length - 1; q++) {
+									sorted[j + q + 1] = temp[q];
+								}
+							} else {
+								sorted[sorted.length] = array[i];
+							}
+						}
+					}
+					unordered = false;
+				} else {
+					unordered = true;
+				}
+			}
+		} while (unordered);
 		return array;
 	}
 
