@@ -120,7 +120,21 @@ public class Sort {
 		return newArray;
 	}
 
-	public static Comparable[] radixSort(Comparable[] array) {
+	public static int[] radixSort(int[] array) {
+		int[] groups = new int[10];
+		int[] sorted = new int[array.length];
+		int max = 0;
+		for(int i = 0; i < array.length; i ++){
+			if(max < array[i]){
+				max = array[i];
+			}
+		}
+		int exp = String.valueOf(max).length();
+		for(int i = 0;  i < exp; i++){
+			for(int j = 0; j < array.length; j++){
+				
+			}
+		}
 		return array;
 	}
 
