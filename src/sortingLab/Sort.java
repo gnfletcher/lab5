@@ -14,6 +14,20 @@ public class Sort {
 	}
 
 	public static Comparable[] quickSortRecur(Comparable[] array) {
+		Comparable partition = array[0];
+		Comparable[] lessThan = new Comparable[array.length];
+		Comparable[] greaterThan = new Comparable[array.length];
+		Comparable[] sorted = new Comparable[array.length];
+		int i= 0;
+		while(array[i].compareTo(partition) < 0){
+			lessThan[i] = array[i];
+			i++;
+		}
+		i++;
+		while(i < array.length){
+			greaterThan[i] = array[i];
+			i++;
+		}
 		return array;
 	}
 
