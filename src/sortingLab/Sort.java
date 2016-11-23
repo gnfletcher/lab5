@@ -18,6 +18,7 @@ public class Sort {
 	}
 
 	public static Comparable[] quickSortIter(Comparable[] array) {
+	
 		return array;
 	}
 
@@ -83,7 +84,40 @@ public class Sort {
 	}
 
 	public static Comparable[] mergeSort(Comparable[] array) {
-		return array;
+		Comparable[] first = new Comparable[array.length/2];
+		Comparable[] second = new Comparable[array.length/2];
+		if(array.length > 2){
+			first = new Comparable[array.length/2];
+			second = new Comparable[array.length/2];
+			System.arraycopy(array, 0, first, 0, first.length);
+			System.arraycopy(array, first.length, second, 0, second.length);
+			first = mergeSort(first);
+			second = mergeSort(second);
+		} else {
+			if(array.length == 2){
+				if(array[0].compareTo(array[1]) > 0){
+					Comparable[] sorted = new Comparable[array.length];
+					sorted[0] = array[1];
+					sorted[1] = array[0];
+					return sorted;
+				} else {
+					return array;
+				}
+			}
+		}
+		Comparable[] newArray = new Comparable[array.length];
+		int i = 0;
+		int j = 0;
+		for(int k = 0 ; k < newArray.length; k ++){
+			if(first[i].compareTo(second[j]) > 0){
+				newArray[k] = first[i];
+				i++;
+			} else {
+				newArray[k] = second[j];
+				j++;
+			}
+		}
+		return newArray;
 	}
 
 	public static Comparable[] radixSort(Comparable[] array) {
