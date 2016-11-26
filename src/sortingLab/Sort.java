@@ -32,7 +32,7 @@ public class Sort {
 		}
 		Comparable[] sorted = new Comparable[array.length];
 		for(int j = 0; j < lessThan.length; j++){
-			
+			if
 		}
 		return array;
 	}
