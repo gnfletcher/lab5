@@ -14,10 +14,12 @@ public class Sort {
   }
 
   public static Comparable[] quickSortRecur(Comparable[] array) {
+
     return array;
   }
 
   public static Comparable[] quickSortIter(Comparable[] array) {
+
     return array;
   }
 
@@ -39,10 +41,12 @@ public class Sort {
   }
 
   public static Comparable[] bucketSort(Comparable[] array) {
+
     return array;
   }
 
   public static Comparable[] heapSort(Comparable[] array) {
+
     return array;
   }
 
@@ -107,8 +111,8 @@ public class Sort {
     second = mergeSort(second);
     int j = 0;
     int k = 0;
-    for(int i = 0; i < array.length; i++){
-      if(first[j].compareTo(second[k]) < 0){
+    for (int i = 0; i < array.length; i++) {
+      if (first[j].compareTo(second[k]) < 0) {
         array[i] = first[j];
         j++;
       } else {
@@ -120,11 +124,34 @@ public class Sort {
 
   }
 
-  public static Comparable[] radixSort(Comparable[] array) {
+  public static int[] radixSort(int[] array) {
+    int digits = String.valueOf(array[0]).length();
+    for (int i = 1; i < array.length; i++) {
+      if (String.valueOf(array[i]).length() > digits) {
+        digits = String.valueOf(array[i]).length();
+      }
+    }
+    int i = 0;
+    while (i < digits) {
+      int[] bucket = new int[array.length];
+      int j = 0;
+      int k = 0;
+      while (j < 10) {
+        for (int l = 0; l < array.length; l++) {
+          if(array[l]%Math.pow(10, 1) == j){
+            bucket[k] = array[l];
+            k++;
+          }
+        }
+      }
+      array = bucket;
+      i++;
+    }
     return array;
   }
 
   public static Comparable[] treeSort(Comparable[] array) {
+
     return array;
   }
 }
