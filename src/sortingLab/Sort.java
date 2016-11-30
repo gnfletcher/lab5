@@ -46,7 +46,16 @@ public class Sort {
   }
 
   public static Comparable[] heapSort(Comparable[] array) {
-
+    TrashHeap heap = new TrashHeap();
+    heap.makeHeap(array[0]);
+    for(int i = 1; i < array.length; i ++){
+      heap.insert(array[i]);
+    }
+    int i = 0;
+    while(!heap.isEmpty()){
+      array[0] = (Comparable) heap.deleteMin();
+      i++;
+    }
     return array;
   }
 
@@ -138,7 +147,7 @@ public class Sort {
       int k = 0;
       while (j < 10) {
         for (int l = 0; l < array.length; l++) {
-          if(array[l]%Math.pow(10, 1) == j){
+          if((array[l] / Math.pow(10, 1)) % 10 == j){
             bucket[k] = array[l];
             k++;
           }
@@ -151,7 +160,7 @@ public class Sort {
   }
 
   public static Comparable[] treeSort(Comparable[] array) {
-
+    
     return array;
   }
 }

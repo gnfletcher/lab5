@@ -10,14 +10,14 @@ import java.util.Queue;
  * @author Greg Fletcher
  * @author Sean O'Donnell
  */
-public class AVLTree {
+public class Tree {
 
   public Node root;
 
   /**
    * Default constructor that creates an empty tree
    */
-  public AVLTree() {
+  public Tree() {
     this.root = null;
 
   }
@@ -28,7 +28,7 @@ public class AVLTree {
    * 
    * @param Comparable value to become the root
    */
-  public AVLTree(Comparable value) {
+  public Tree(Comparable value) {
     this.root = new Node(value);
 
   }
@@ -40,7 +40,7 @@ public class AVLTree {
    * @param Comparable value to be searched for
    * @return boolean if operation was successful.
    */
-  public static boolean search(AVLTree tree, Comparable value) {
+  public static boolean search(Tree tree, Comparable value) {
     Node current = tree.root;
     while (current.getData().compareTo(value) != 0 && current.hasChildren()) {
       if (current.getData().compareTo(value) < 0) {
@@ -161,7 +161,7 @@ public class AVLTree {
    * @param Comparable value to be added to the tree
    * @return AVLtree new tree with inserted value
    */
-  public static AVLTree insert(AVLTree tree, Comparable value) {
+  public static Tree insert(Tree tree, Comparable value) {
     Node insert = searchForOpen(tree.root, value);
     Node newNode = new Node(value);
     if (insert.getData().compareTo(value) <= 0) {
@@ -203,7 +203,7 @@ public class AVLTree {
    * @return AVLtree new tree with node deleted
    */
 
-  public static AVLTree delete(AVLTree tree, Comparable value) {
+  public static Tree delete(Tree tree, Comparable value) {
     Node node = tree.getNode(value);
     Node successor;
     if (node.hasChildren()) {
@@ -247,10 +247,10 @@ public class AVLTree {
   /**
    * Returns an ArrayList of the inorder representation of the given tree
    * 
-   * @param AVLTree to be represented
+   * @param Tree to be represented
    * @return ArrayList<Comparable> of the nodes
    */
-  public static ArrayList<Comparable> inorder(AVLTree tree) {
+  public static ArrayList<Comparable> inorder(Tree tree) {
     return tree.inorder(tree.root);
   }
 

@@ -35,7 +35,7 @@ public interface MyHeap {
 	 * 
 	 * @return boolean whether or not the minimum was deleted
 	 */
-    public boolean deleteMin();
+    public Node deleteMin();
     
 	/**
 	 * Checks to see if the given value is less than the given node's value. If so, update the node's value.
