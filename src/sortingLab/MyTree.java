@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
 /**
  * Implementation of an AVL Tree that contains all necessary operations
  * 
@@ -40,8 +41,8 @@ public class MyTree {
    * @param Comparable value to be searched for
    * @return boolean if operation was successful.
    */
-  public static boolean search(MyTree myTree, Comparable value) {
-    Node current = myTree.root;
+  public static boolean search(MyTree tree, Comparable value) {
+    Node current = tree.root;
     while (current.getData().compareTo(value) != 0 && current.hasChildren()) {
       if (current.getData().compareTo(value) < 0) {
         current = current.getRightChild();
@@ -76,9 +77,93 @@ public class MyTree {
     return null;
   }
 
- 
-  public static MyTree insert(MyTree myTree, Comparable value) {
-    Node insert = searchForOpen(myTree.root, value);
+  /**
+   * Performs a left rotation around the given node
+   * 
+   * @param Node around which rotation is done
+   * @return boolean if operation was successful.
+   */
+  public static boolean rotateLeft(Node node) {
+    Node newParent = node.getRightChild();
+    newParent.setParent(node.getParent());
+    Node oldParent = node;
+    if (node.getParent().getLeftChild().equals(node)) {
+      node.getParent().setLeftChild(newParent);
+    } else {
+      node.getParent().setRightChild(newParent);
+    }
+    oldParent.setRightChild(newParent.getLeftChild());
+    oldParent.setParent(newParent);
+    newParent.setLeftChild(oldParent);
+    if (newParent.getLeftChild() != null) {
+      newParent.getLeftChild().setParent(newParent);
+    }
+    if (newParent.getRightChild() != null) {
+      newParent.getRightChild().setParent(newParent);
+    }
+    return true;
+  }
+
+  /**
+   * Performs a right rotation around the given node
+   * 
+   * @param Node around which rotation is done
+   * @return boolean if operation was successful.
+   */
+  public static boolean rotateRight(Node node) {
+    Node newParent = node.getLeftChild();
+    newParent.setParent(node.getParent());
+    Node oldParent = node;
+    if (node.getParent().getLeftChild().equals(node)) {
+      node.getParent().setLeftChild(newParent);
+    } else {
+      node.getParent().setRightChild(newParent);
+    }
+    oldParent.setLeftChild(newParent.getRightChild());
+    oldParent.setParent(newParent);
+    newParent.setRightChild(oldParent);
+    if (newParent.getLeftChild() != null) {
+      newParent.getLeftChild().setParent(newParent);
+    }
+    if (newParent.getRightChild() != null) {
+      newParent.getRightChild().setParent(newParent);
+    }
+    return true;
+  }
+
+  /**
+   * Performs a double left rotation around the given node
+   * 
+   * @param node around which rotation is done
+   * @return boolean if operation was successful.
+   */
+  public static boolean rotateLeftRight(Node node) {
+    rotateRight(node.getRightChild());
+    rotateLeft(node);
+    return true;
+  }
+
+  /**
+   * Performs a double right rotation around the given node
+   * 
+   * @param node around which rotation is done
+   * @return boolean if operation was successful.
+   */
+  public static boolean rotateRightLeft(Node node) {
+    rotateLeft(node.getLeftChild());
+    rotateRight(node);
+    return true;
+  }
+
+  /**
+   * Inserts a node containing the given value into the given tree
+   * 
+   * @param AVLtree to be added to
+   * @param Comparable value to be added to the tree
+   * @return AVLtree new tree with inserted value
+   */
+  public static MyTree insert(MyTree tree, Comparable value) {
+    Node insert = searchForOpen(tree.root, value);
     Node newNode = new Node(value);
     if (insert.getData().compareTo(value) <= 0) {
       insert.setRightChild(newNode);
@@ -87,8 +172,8 @@ public class MyTree {
       insert.setLeftChild(newNode);
       newNode.setParent(insert);
     }
-    balance(myTree.root);
-    return myTree;
+    balance(tree.root);
+    return tree;
   }
 
   /**
@@ -114,13 +199,13 @@ public class MyTree {
   /**
    * Deletes a given element from the tree and rebalances
    * 
-   * @param MyTree to be deleted from
+   * @param Tree to be deleted from
    * @param Comparable value to be deleted
    * @return AVLtree new tree with node deleted
    */
 
-  public static MyTree delete(MyTree myTree, Comparable value) {
-    Node node = myTree.getNode(value);
+  public static MyTree delete(MyTree tree, Comparable value) {
+    Node node = tree.getNode(value);
     Node successor;
     if (node.hasChildren()) {
       if (node.getLeftChild() != null) {
@@ -146,8 +231,8 @@ public class MyTree {
         successor.getLeftChild().setParent(successor);
       }
     } else {
-      if (myTree.root.equals(node)) {
-        myTree.root = null;
+      if (tree.root.equals(node)) {
+        tree.root = null;
       } else {
         if (node.getParent().getLeftChild().equals(node)) {
           node.getParent().setLeftChild(null);
@@ -156,18 +241,18 @@ public class MyTree {
         }
       }
     }
-    balance(myTree.root);
-    return myTree;
+    balance(tree.root);
+    return tree;
   }
 
   /**
    * Returns an ArrayList of the inorder representation of the given tree
    * 
-   * @param MyTree to be represented
+   * @param AVLTree to be represented
    * @return ArrayList<Comparable> of the nodes
    */
-  public static ArrayList<Comparable> inorder(MyTree myTree) {
-    return myTree.inorder(myTree.root);
+  public static ArrayList<Comparable> inorder(MyTree tree) {
+    return tree.inorder(tree.root);
   }
 
   /**
