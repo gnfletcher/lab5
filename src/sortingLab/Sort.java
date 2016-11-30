@@ -15,9 +15,7 @@ public class Sort {
   }
 
   public static Comparable[] quickSortRecur(Comparable[] array) {
-
-    array = quickSortRecur(array, 0);
-    return array;
+    return quickSortRecur(array, 0);
   }
 
   public static Comparable[] quickSortRecur(Comparable[] array, int pivot) {
