@@ -161,7 +161,10 @@ public class Sort {
   }
 
   public static Comparable[] treeSort(Comparable[] array) {
-    
-    return array;
+    MyTree tree = new MyTree(array[0]);
+    for(int i = 1; i < array.length; i ++){
+      tree = tree.insert(tree, array[i]);
+    }
+    return (Comparable[]) tree.inorder(tree).toArray();
   }
 }
