@@ -9,18 +9,82 @@ package sortingLab;
  */
 public class Sort {
 
-  
+
   public Sort() {
 
   }
 
   public static Comparable[] quickSortRecur(Comparable[] array) {
 
+    array = quickSortRecur(array, 0);
     return array;
   }
 
-  public static Comparable[] quickSortIter(Comparable[] array) {
+  public static Comparable[] quickSortRecur(Comparable[] array, int pivot) {
+    if (pivot == array.length - 1) {
+      return array;
+    }
+    Comparable[] left = new Comparable[array.length];
+    Comparable[] right = new Comparable[array.length];
+    int j = 0;
+    int k = 0;
+    for (int i = pivot + 1; i < array.length; i++) {
+      if (array[pivot].compareTo(array[i]) < 0) {
+        right[k] = array[i];
+        k++;
+      } else {
+        Comparable temp = array[i];
+        Comparable swap;
+        for(int l = 0; l <= j; l++){
+          if(left[l] == null){
+            left[l] = array[i];
+          } else if(left[l].compareTo(temp) > 0){
+            swap = temp;
+            temp = left[l];
+          }
+        }
+        j++;
+      }
+    }
+    left[j + 1] = array[pivot];
+    pivot = j + 2;
+    for(int i = pivot; i < array.length; i++){
+      left[i] = right[i - pivot];
+    }
+    return quickSortRecur(array, pivot);
+  }
 
+  public static Comparable[] quickSort(Comparable[] array) {
+    int pivot = 0;
+    Comparable[] left = new Comparable[array.length];
+    Comparable[] right = new Comparable[array.length];
+    int j = 0;
+    int k = 0;
+    while (pivot < array.length) {
+      for (int i = pivot + 1; i < array.length; i++) {
+        if (array[pivot].compareTo(array[i]) < 0) {
+          right[k] = array[i];
+          k++;
+        } else {
+          Comparable temp = array[i];
+          Comparable swap;
+          for(int l = 0; l <= j; l++){
+            if(left[l] == null){
+              left[l] = array[i];
+            } else if(left[l].compareTo(temp) > 0){
+              swap = temp;
+              temp = left[l];
+            }
+          }
+          j++;
+        }
+      }
+      left[j + 1] = array[pivot];
+      pivot = j + 2;
+      for(int i = pivot; i < array.length; i++){
+        left[i] = right[i - pivot];
+      }
+    }
     return array;
   }
 
@@ -41,19 +105,40 @@ public class Sort {
     return array;
   }
 
-  public static Comparable[] bucketSort(Comparable[] array) {
-
+  public static int[] bucketSort(int[] array) {
+    int digits = String.valueOf(array[0]).length();
+    for (int i = 1; i < array.length; i++) {
+      if (String.valueOf(array[i]).length() > digits) {
+        digits = String.valueOf(array[i]).length();
+      }
+    }
+    int i = 0;
+    while (i < digits) {
+      int[] bucket = new int[array.length];
+      int j = 0;
+      int k = 0;
+      while (j < 10) {
+        for (int l = 0; l < array.length; l++) {
+          if ((array[l] / Math.pow(10, 1)) % 10 == j) {
+            bucket[k] = array[l];
+            k++;
+          }
+        }
+      }
+      array = bucket;
+      i++;
+    }
     return array;
   }
 
   public static Comparable[] heapSort(Comparable[] array) {
     MyHeap heap = new MyHeap();
     heap.makeHeap(array[0]);
-    for(int i = 1; i < array.length; i ++){
+    for (int i = 1; i < array.length; i++) {
       heap.insert(array[i]);
     }
     int i = 0;
-    while(!heap.isEmpty()){
+    while (!heap.isEmpty()) {
       array[0] = (Comparable) heap.deleteMin();
       i++;
     }
@@ -148,7 +233,7 @@ public class Sort {
       int k = 0;
       while (j < 10) {
         for (int l = 0; l < array.length; l++) {
-          if((array[l] / Math.pow(10, 1)) % 10 == j){
+          if ((array[l] / Math.pow(10, 1)) % 10 == j) {
             bucket[k] = array[l];
             k++;
           }
@@ -162,7 +247,7 @@ public class Sort {
 
   public static Comparable[] treeSort(Comparable[] array) {
     MyTree tree = new MyTree(array[0]);
-    for(int i = 1; i < array.length; i ++){
+    for (int i = 1; i < array.length; i++) {
       tree = tree.insert(tree, array[i]);
     }
     return (Comparable[]) tree.inorder(tree).toArray();
