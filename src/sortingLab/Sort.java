@@ -46,7 +46,7 @@ public class Sort {
   }
 
   public static Comparable[] heapSort(Comparable[] array) {
-    TrashHeap heap = new TrashHeap();
+    MyHeap heap = new MyHeap();
     heap.makeHeap(array[0]);
     for(int i = 1; i < array.length; i ++){
       heap.insert(array[i]);

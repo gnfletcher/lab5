@@ -10,14 +10,14 @@ import java.util.Queue;
  * @author Greg Fletcher
  * @author Sean O'Donnell
  */
-public class Tree {
+public class MyTree {
 
   public Node root;
 
   /**
    * Default constructor that creates an empty tree
    */
-  public Tree() {
+  public MyTree() {
     this.root = null;
 
   }
@@ -28,7 +28,7 @@ public class Tree {
    * 
    * @param Comparable value to become the root
    */
-  public Tree(Comparable value) {
+  public MyTree(Comparable value) {
     this.root = new Node(value);
 
   }
@@ -36,12 +36,12 @@ public class Tree {
   /**
    * Searches tree for given element.
    * 
-   * @param tree to be searched
+   * @param myTree to be searched
    * @param Comparable value to be searched for
    * @return boolean if operation was successful.
    */
-  public static boolean search(Tree tree, Comparable value) {
-    Node current = tree.root;
+  public static boolean search(MyTree myTree, Comparable value) {
+    Node current = myTree.root;
     while (current.getData().compareTo(value) != 0 && current.hasChildren()) {
       if (current.getData().compareTo(value) < 0) {
         current = current.getRightChild();
@@ -161,8 +161,8 @@ public class Tree {
    * @param Comparable value to be added to the tree
    * @return AVLtree new tree with inserted value
    */
-  public static Tree insert(Tree tree, Comparable value) {
-    Node insert = searchForOpen(tree.root, value);
+  public static MyTree insert(MyTree myTree, Comparable value) {
+    Node insert = searchForOpen(myTree.root, value);
     Node newNode = new Node(value);
     if (insert.getData().compareTo(value) <= 0) {
       insert.setRightChild(newNode);
@@ -171,8 +171,8 @@ public class Tree {
       insert.setLeftChild(newNode);
       newNode.setParent(insert);
     }
-    balance(tree.root);
-    return tree;
+    balance(myTree.root);
+    return myTree;
   }
 
   /**
@@ -198,13 +198,13 @@ public class Tree {
   /**
    * Deletes a given element from the tree and rebalances
    * 
-   * @param Tree to be deleted from
+   * @param MyTree to be deleted from
    * @param Comparable value to be deleted
    * @return AVLtree new tree with node deleted
    */
 
-  public static Tree delete(Tree tree, Comparable value) {
-    Node node = tree.getNode(value);
+  public static MyTree delete(MyTree myTree, Comparable value) {
+    Node node = myTree.getNode(value);
     Node successor;
     if (node.hasChildren()) {
       if (node.getLeftChild() != null) {
@@ -230,8 +230,8 @@ public class Tree {
         successor.getLeftChild().setParent(successor);
       }
     } else {
-      if (tree.root.equals(node)) {
-        tree.root = null;
+      if (myTree.root.equals(node)) {
+        myTree.root = null;
       } else {
         if (node.getParent().getLeftChild().equals(node)) {
           node.getParent().setLeftChild(null);
@@ -240,18 +240,18 @@ public class Tree {
         }
       }
     }
-    balance(tree.root);
-    return tree;
+    balance(myTree.root);
+    return myTree;
   }
 
   /**
    * Returns an ArrayList of the inorder representation of the given tree
    * 
-   * @param Tree to be represented
+   * @param MyTree to be represented
    * @return ArrayList<Comparable> of the nodes
    */
-  public static ArrayList<Comparable> inorder(Tree tree) {
-    return tree.inorder(tree.root);
+  public static ArrayList<Comparable> inorder(MyTree myTree) {
+    return myTree.inorder(myTree.root);
   }
 
   /**
