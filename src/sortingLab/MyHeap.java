@@ -12,6 +12,7 @@ import java.util.Queue;
  * @author Greg Fletcher
  * @author Sean O'Donnell
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class MyHeap {
 
   public Node root;
@@ -34,6 +35,7 @@ public class MyHeap {
    * @return Node the root node
    */
 
+  
   public Node makeHeap(Comparable value) {
     Node newNode = new Node(value);
     this.root = newNode;

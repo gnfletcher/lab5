@@ -7,6 +7,7 @@ package sortingLab;
  * @author Greg Fletcher
  * @author Sean O'Donnell
  */
+@SuppressWarnings("rawtypes")
 public class Node {
 	private Node left_child;
 	private Node right_child;

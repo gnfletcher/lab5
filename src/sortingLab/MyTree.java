@@ -11,6 +11,7 @@ import java.util.Queue;
  * @author Greg Fletcher
  * @author Sean O'Donnell
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class MyTree {
 
   public Node root;

@@ -73,8 +73,9 @@ public class Sort {
             if(left[l] == null){
               left[l] = array[i];
             } else if(left[l].compareTo(temp) > 0){
-              swap = temp;
-              temp = left[l];
+              swap = left[l];
+              left[l] = temp;
+              temp = swap;
             }
           }
           j++;
@@ -138,10 +139,8 @@ public class Sort {
     for (int i = 1; i < array.length; i++) {
       heap.insert(array[i]);
     }
-    int i = 0;
     while (!heap.isEmpty()) {
       array[0] = (Comparable) heap.deleteMin();
-      i++;
     }
     return array;
   }
@@ -249,8 +248,8 @@ public class Sort {
   public static Comparable[] treeSort(Comparable[] array) {
     MyTree tree = new MyTree(array[0]);
     for (int i = 1; i < array.length; i++) {
-      tree = tree.insert(tree, array[i]);
+      tree = MyTree.insert(tree, array[i]);
     }
-    return (Comparable[]) tree.inorder(tree).toArray();
+    return (Comparable[]) MyTree.inorder(tree).toArray();
   }
 }
