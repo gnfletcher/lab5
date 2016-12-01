@@ -7,17 +7,19 @@ package sortingLab;
  * @author FletcherG
  *
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class Sort {
 
-
+ 
   public Sort() {
 
   }
-
+  
+  
   public static Comparable[] quickSortRecur(Comparable[] array) {
     return quickSortRecur(array, 0);
   }
-
+  
   public static Comparable[] quickSortRecur(Comparable[] array, int pivot) {
     if (pivot == array.length - 1) {
       return array;
@@ -37,8 +39,9 @@ public class Sort {
           if(left[l] == null){
             left[l] = array[i];
           } else if(left[l].compareTo(temp) > 0){
-            swap = temp;
-            temp = left[l];
+            swap = left[l];
+            left[l] = temp;
+            temp = swap;
           }
         }
         j++;
