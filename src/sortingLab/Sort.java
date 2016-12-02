@@ -138,10 +138,8 @@ public class Sort {
     for (int i = 1; i < array.length; i++) {
       heap.insert(array[i]);
     }
-    heap.print();
     int i = 0;
     while (!heap.isEmpty()) {
-      heap.print();
       array[i] = heap.findMin();
       heap.deleteMin();
       i++;

@@ -177,13 +177,6 @@ public class MyHeap {
    */
   public boolean siftDown(Node node) {
     Node current = node;
-    if(node.equals(root)){
-      if(root.getLeftChild() == null){
-        root.setLeftChild(root.getRightChild());
-        root.setRightChild(null);
-        return true;
-      }
-    }
     while (hasChildren(current)) {
       if (current.getRightChild() != null) {
         if (current.getLeftChild().getData().compareTo(current.getData()) < 0
@@ -199,6 +192,8 @@ public class MyHeap {
       } else {
         if (current.getLeftChild().getData().compareTo(current.getData()) < 0) {
           swapDown(current.getLeftChild());
+          return true;
+        } else {
           return true;
         }
       }
