@@ -9,9 +9,9 @@ public class driver {
 		
 		//Comparable[] arrayQSR = Sort.quickSortRecur(arrayComp);
 		//Comparable[] arrayQSI = Sort.quickSortIter(arrayComp);
-		Comparable[] arrayMerge = Sort.mergeSort(arrayComp);
+		//Comparable[] arrayMerge = Sort.mergeSort(arrayComp);
 		//Comparable[] arrayInser = Sort.insertionSort(arrayComp);
-		//Comparable[] arrayBubble = Sort.bubbleSort(arrayComp);
+		Comparable[] arrayBubble = Sort.bubbleSort(arrayComp);
 		//Comparable[] arrayHeap = Sort.heapSort(arrayComp);
 		//Comparable[] arrayTree = Sort.treeSort(arrayComp);
 		//int[] arrayRadix = Sort.radixSort(array);
@@ -23,16 +23,15 @@ public class driver {
 		//  tree.insert(tree, value.nextInt(1000));
 		//}
 		
-		//System.out.println(arrayQSR.toString());
-		//System.out.println(arrayQSI.toString());
-		System.out.println(Sort.toString(arrayMerge));
-		//System.out.println(arrayInser.toString());
-		//System.out.println(arrayBubble.toString());
-		//System.out.println(arrayBucket.toString());
-		//System.out.println(arrayHeap.toString());
-		//System.out.println(arrayTree.toString());
+		//System.out.println(Sort.toString(arrayQSR));
+		//System.out.println(Sort.toString(arrayQSI));
+		//System.out.println(Sort.toString(arrayMerge));
+		//System.out.println(Sort.toString(arrayInser));
+		System.out.println(Sort.toString(arrayBubble));
+		//System.out.println(Sort.toString(arrayHeap));
+		//System.out.println(Sort.toString(arrayTree));
 		//System.out.println(arrayRadix.toString());
-		System.out.println("Done");
+		//System.out.println(arrayBucket.toString());
 	}
 
 }

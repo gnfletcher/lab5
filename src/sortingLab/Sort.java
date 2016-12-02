@@ -93,15 +93,14 @@ public class Sort {
   public static Comparable[] bubbleSort(Comparable[] array) {
     boolean unordered = false;
     do {
-      for (int i = 0; i < array.length; i++) {
+      unordered = false;
+      for (int i = 0; i < array.length - 1; i++) {
         if (array[i].compareTo(array[i + 1]) > 0) {
           Comparable temp = array[i + 1];
           array[i + 1] = array[i];
           array[i] = temp;
           unordered = true;
-        } else {
-          unordered = false;
-        }
+        } 
       }
     } while (unordered);
     return array;
