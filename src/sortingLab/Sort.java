@@ -189,7 +189,7 @@ public class Sort {
       Comparable first = array[0];
       if (array[0].compareTo(array[1]) > 0) {
         array[0] = array[1];
-        array[0] = first;
+        array[1] = first;
       }
       return array;
     }
@@ -206,15 +206,27 @@ public class Sort {
     second = mergeSort(second);
     int j = 0;
     int k = 0;
-    for (int i = 0; i < array.length; i++) {
-      System.out.println(j);
-      System.out.println(k);
+    int i = 0;
+    while ((first.length == j) && (second.length == k)) {
       if (first[j].compareTo(second[k]) < 0) {
-        first[j] = array[i];
+        array[i] = first[j];
         j++;
       } else {
-        second[k] = array[i];
+        array[i] = second[k];
         k++;
+      }
+      i++;
+    }
+    if(first.length == j){
+      for (;i < array.length; i++){
+        array[i] = second[k];
+        k++;
+      }
+    } else {
+      for (;i < array.length; i++){
+        System.out.println(i + " " + j + " " + first.length + " " + array.length);
+        array[i] = first[j];
+        j++;
       }
     }
     return array;
