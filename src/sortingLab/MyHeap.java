@@ -6,13 +6,14 @@ package sortingLab;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
 /**
  * Implements the MyHeap interface to create a heap
  * 
  * @author Greg Fletcher
  * @author Sean O'Donnell
  */
-@SuppressWarnings({"rawtypes","unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class MyHeap {
 
   public Node root;
@@ -35,7 +36,6 @@ public class MyHeap {
    * @return Node the root node
    */
 
-  
   public Node makeHeap(Comparable value) {
     Node newNode = new Node(value);
     this.root = newNode;
@@ -177,6 +177,13 @@ public class MyHeap {
    */
   public boolean siftDown(Node node) {
     Node current = node;
+    if(node.equals(root)){
+      if(root.getLeftChild() == null){
+        root.setLeftChild(root.getRightChild());
+        root.setRightChild(null);
+        return true;
+      }
+    }
     while (hasChildren(current)) {
       if (current.getRightChild() != null) {
         if (current.getLeftChild().getData().compareTo(current.getData()) < 0
@@ -219,26 +226,22 @@ public class MyHeap {
    * @return boolean whether or not the minimum was deleted
    */
 
-  public Node deleteMin() {
-    Node deleted;
+  public boolean deleteMin() {
     if (root == last) {
-      deleted = root;
       root = null;
       numberOfNodes--;
-      return deleted;
+      return true;
     }
     root.setData(last.getData());
     if (numberOfNodes % 2 == 0) {
-      deleted = last.getParent().getLeftChild();
       last.getParent().setLeftChild(null);
     } else {
-      deleted = last.getParent().getRightChild();
       last.getParent().setRightChild(null);
     }
     numberOfNodes--;
     newLast();
     siftDown(root);
-    return deleted;
+    return true;
   }
 
   /**
@@ -298,7 +301,6 @@ public class MyHeap {
    * 
    * @return Comparable minimum value in heap
    */
-
   public Comparable findMin() {
     // TODO Auto-generated method stub
     if (root != null) {

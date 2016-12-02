@@ -11,8 +11,8 @@ public class driver {
 		//Comparable[] arrayQSI = Sort.quickSortIter(arrayComp);
 		//Comparable[] arrayMerge = Sort.mergeSort(arrayComp);
 		//Comparable[] arrayInser = Sort.insertionSort(arrayComp);
-		Comparable[] arrayBubble = Sort.bubbleSort(arrayComp);
-		//Comparable[] arrayHeap = Sort.heapSort(arrayComp);
+		//Comparable[] arrayBubble = Sort.bubbleSort(arrayComp);
+		Comparable[] arrayHeap = Sort.heapSort(arrayComp);
 		//Comparable[] arrayTree = Sort.treeSort(arrayComp);
 		//int[] arrayRadix = Sort.radixSort(array);
 		//int[] arrayBucket = Sort.bucketSort(array);
@@ -27,8 +27,8 @@ public class driver {
 		//System.out.println(Sort.toString(arrayQSI));
 		//System.out.println(Sort.toString(arrayMerge));
 		//System.out.println(Sort.toString(arrayInser));
-		System.out.println(Sort.toString(arrayBubble));
-		//System.out.println(Sort.toString(arrayHeap));
+		//System.out.println(Sort.toString(arrayBubble));
+		System.out.println(Sort.toString(arrayHeap));
 		//System.out.println(Sort.toString(arrayTree));
 		//System.out.println(arrayRadix.toString());
 		//System.out.println(arrayBucket.toString());
