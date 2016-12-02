@@ -55,7 +55,7 @@ public class Sort {
     return quickSortRecur(array, pivot);
   }
 
-  public static Comparable[] quickSort(Comparable[] array) {
+  public static Comparable[] quickSortIter(Comparable[] array) {
     int pivot = 0;
     Comparable[] left = new Comparable[array.length];
     Comparable[] right = new Comparable[array.length];
@@ -197,21 +197,23 @@ public class Sort {
     Comparable[] first = new Comparable[mid];
     Comparable[] second = new Comparable[array.length - mid];
     for (int i = 0; i < mid; i++) {
-      array[i] = first[i];
+      first[i] = array[i];
     }
     for (int i = mid; i < array.length; i++) {
-      array[i] = second[i - mid];
+      second[i - mid] = array[i];
     }
     first = mergeSort(first);
     second = mergeSort(second);
     int j = 0;
     int k = 0;
     for (int i = 0; i < array.length; i++) {
+      System.out.println(j);
+      System.out.println(k);
       if (first[j].compareTo(second[k]) < 0) {
-        array[i] = first[j];
+        first[j] = array[i];
         j++;
       } else {
-        array[i] = second[k];
+        second[k] = array[i];
         k++;
       }
     }
