@@ -268,7 +268,12 @@ public class Sort {
       tree.print();
       tree = MyTree.insert(tree, array[i]);
     }
-    return (Comparable[]) MyTree.inorder(tree).toArray();
+    Object[] treeArray = MyTree.inorder(tree).toArray();
+        Comparable[] sorted = new Comparable[array.length];
+    for(int i = 0; i < array.length; i++){
+      sorted[i] = (Comparable) treeArray[i];
+    }
+    return sorted;
   }
   
   public static String toString(Comparable[] array){

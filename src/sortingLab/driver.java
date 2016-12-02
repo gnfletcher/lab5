@@ -13,9 +13,9 @@ public class driver {
 		//Comparable[] arrayInser = Sort.insertionSort(arrayComp);
 		//Comparable[] arrayBubble = Sort.bubbleSort(arrayComp);
 		//Comparable[] arrayHeap = Sort.heapSort(arrayComp);
-		Comparable[] arrayTree = Sort.treeSort(arrayComp);
+		//Comparable[] arrayTree = Sort.treeSort(arrayComp);
 		//int[] arrayRadix = Sort.radixSort(array);
-		//int[] arrayBucket = Sort.bucketSort(array);
+		int[] arrayBucket = Sort.bucketSort(array);
 		
 		//Random value = new Random();
 		//MyTree tree = new MyTree();
@@ -29,9 +29,9 @@ public class driver {
 		//System.out.println(Sort.toString(arrayInser));
 		//System.out.println(Sort.toString(arrayBubble));
 		//System.out.println(Sort.toString(arrayHeap));
-		System.out.println(Sort.toString(arrayTree));
+		//System.out.println(Sort.toString(arrayTree));
 		//System.out.println(arrayRadix.toString());
-		//System.out.println(arrayBucket.toString());
+		System.out.println(arrayBucket.toString());
 	}
 
 }
