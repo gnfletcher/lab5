@@ -265,6 +265,7 @@ public class Sort {
   public static Comparable[] treeSort(Comparable[] array) {
     MyTree tree = new MyTree(array[0]);
     for (int i = 1; i < array.length; i++) {
+      tree.print();
       tree = MyTree.insert(tree, array[i]);
     }
     return (Comparable[]) MyTree.inorder(tree).toArray();

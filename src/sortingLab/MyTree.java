@@ -11,10 +11,10 @@ import java.util.Queue;
  * @author Greg Fletcher
  * @author Sean O'Donnell
  */
-@SuppressWarnings({"rawtypes","unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class MyTree {
 
-  public Node root;
+  public static Node root;
 
   /**
    * Default constructor that creates an empty tree
@@ -88,10 +88,14 @@ public class MyTree {
     Node newParent = node.getRightChild();
     newParent.setParent(node.getParent());
     Node oldParent = node;
-    if (node.getParent().getLeftChild().equals(node)) {
-      node.getParent().setLeftChild(newParent);
+    if (!node.equals(root)) {
+      if (node.getParent().getLeftChild().equals(node)) {
+        node.getParent().setLeftChild(newParent);
+      } else {
+        node.getParent().setRightChild(newParent);
+      }
     } else {
-      node.getParent().setRightChild(newParent);
+      root = newParent;
     }
     oldParent.setRightChild(newParent.getLeftChild());
     oldParent.setParent(newParent);
@@ -115,10 +119,18 @@ public class MyTree {
     Node newParent = node.getLeftChild();
     newParent.setParent(node.getParent());
     Node oldParent = node;
-    if (node.getParent().getLeftChild().equals(node)) {
-      node.getParent().setLeftChild(newParent);
+    if (!node.equals(root)) {
+      if (node.getParent().getLeftChild() != null) {
+        if (node.getParent().getLeftChild().equals(node)) {
+          node.getParent().setLeftChild(newParent);
+        } else {
+          node.getParent().setRightChild(newParent);
+        }
+      } else {
+        node.getParent().setRightChild(newParent);
+      }
     } else {
-      node.getParent().setRightChild(newParent);
+      root = newParent;
     }
     oldParent.setLeftChild(newParent.getRightChild());
     oldParent.setParent(newParent);
