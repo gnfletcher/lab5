@@ -207,7 +207,7 @@ public class Sort {
     int j = 0;
     int k = 0;
     int i = 0;
-    while ((first.length == j) && (second.length == k)) {
+    while ((first.length != j) && (second.length != k)) {
       System.out.println(i + " " + j + " " + first.length + " " + array.length);
       if (first[j].compareTo(second[k]) < 0) {
         array[i] = first[j];
@@ -226,7 +226,6 @@ public class Sort {
       }
     } else {
       for (; i < array.length; i++) {
-        System.out.println(i + " " + j + " " + first.length + " " + array.length);
         array[i] = first[j];
         j++;
       }
@@ -267,5 +266,14 @@ public class Sort {
       tree = MyTree.insert(tree, array[i]);
     }
     return (Comparable[]) MyTree.inorder(tree).toArray();
+  }
+  
+  public static String toString(Comparable[] array){
+    String sorted = "[";
+    for(int i = 0; i < array.length - 1; i++){
+      sorted = sorted + array[i] + ", ";
+    }
+    sorted = sorted + array[array.length-1] + "]";
+    return sorted;
   }
 }

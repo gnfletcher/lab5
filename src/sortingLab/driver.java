@@ -25,7 +25,7 @@ public class driver {
 		
 		//System.out.println(arrayQSR.toString());
 		//System.out.println(arrayQSI.toString());
-		System.out.println(arrayMerge.toString());
+		System.out.println(Sort.toString(arrayMerge));
 		//System.out.println(arrayInser.toString());
 		//System.out.println(arrayBubble.toString());
 		//System.out.println(arrayBucket.toString());
