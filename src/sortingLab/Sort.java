@@ -13,23 +13,20 @@ public class Sort {
 	public Sort() {
 
 	}
-	
+
 	public static Comparable[] quickSortRecur(Comparable[] array) {
 		return quickSortRecur(array, array.length);
 	}
 
 	public static Comparable[] quickSortRecur(Comparable[] array, int length) {
-		if(array[0] == null){
-		}
-		if(array[1] == null){
+		if (array.length == 1) {
 			return array;
 		}
-		Comparable[] left = new Comparable[length];
-		Comparable[] right = new Comparable[length];
-		right[0] = array[0];
+		Comparable[] left = new Comparable[array.length];
+		Comparable[] right = new Comparable[array.length];
 		int j = 0;
 		int k = 0;
-		for (int i = 1; i < length; i++) {
+		for (int i = 1; i < length - 1; i++) {
 			if (array[0].compareTo(array[i]) <= 0) {
 				right[k] = array[i];
 				k++;
@@ -38,11 +35,14 @@ public class Sort {
 				j++;
 			}
 		}
-		left = quickSortRecur(left, j);
-		right = quickSortRecur(right, k);
-		System.out.println(j);
-		for(int i = 0; i <= k ; i++){
-			left[j] = right[i];
+		if (j > 0) {
+			left = quickSortRecur(left, j);
+		}
+		if (k > 0) {
+			right = quickSortRecur(right, k);
+		}
+		for (int i = 0; i < k - 1; i++) {
+			array[i] = left[i];
 			j++;
 		}
 		return left;
