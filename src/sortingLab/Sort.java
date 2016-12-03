@@ -151,35 +151,25 @@ public class Sort {
     Comparable p = array[0];
     Comparable[] unsorted = array;
     Comparable[] sorted = new Comparable[array.length];
-    boolean unordered = false;
-    do {
-      for (int i = 0; i < unsorted.length; i++) {
-        p = unsorted[i];
-        if (p.compareTo(unsorted[i]) < 0) {
-          if (sorted.length == 0) {
-            sorted[0] = array[i];
-          } else {
-            for (int j = 0; j < sorted.length; j++) {
-              if (array[i].compareTo(sorted[j]) > 0) {
-                Comparable[] temp = new Comparable[array.length];
-                for (int q = 0; q < sorted.length - 1; q++) {
-                  temp[q] = sorted[j + q];
-                }
-                sorted[j] = unsorted[i];
-                for (int q = 0; q < sorted.length - 1; q++) {
-                  sorted[j + q + 1] = temp[q];
-                }
-              } else {
-                sorted[sorted.length] = array[i];
-              }
-            }
-          }
-          unordered = false;
-        } else {
-          unordered = true;
-        }
-      }
-    } while (unordered);
+    sorted[0] = p;
+    int counter = 0;
+    for (int i = 0; i < unsorted.length - 1; i++) {
+         System.out.println(p);
+         if (p.compareTo(unsorted[i + 1]) < 0) {
+         	p = unsorted[i + 1];
+         	sorted[i + 1] = p;
+         	counter++;
+           } else {
+         	  Comparable temp = unsorted[i + 1];
+         	  int j = counter;
+             	while(sorted[j].compareTo(unsorted[i + 1]) > 0) {
+             		j--;
+             	}
+             	for(int q = j; q <= counter; q++) {	
+             		sorted[q + 1] = sorted[q];
+             	}
+             	sorted[j] = temp;
+             	counter++;
     return array;
   }
 
@@ -210,7 +200,6 @@ public class Sort {
     int k = 0;
     int i = 0;
     while ((first.length != j) && (second.length != k)) {
-      System.out.println(i + " " + j + " " + first.length + " " + array.length);
       if (first[j].compareTo(second[k]) < 0) {
         array[i] = first[j];
         j++;
@@ -233,7 +222,7 @@ public class Sort {
       }
     }
     return array;
-
+    
   }
 
   public static int[] radixSort(int[] array) {
