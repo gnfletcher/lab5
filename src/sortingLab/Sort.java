@@ -47,6 +47,8 @@ public class Sort {
         j++;
       }
     }
+    left[j] = array[0];
+    j++;
     left[j + 1] = array[pivot];
     pivot = j + 2;
     for (int i = pivot; i < array.length; i++) {

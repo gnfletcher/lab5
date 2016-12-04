@@ -15,7 +15,7 @@ public class driver {
 		//Comparable[] arrayHeap = Sort.heapSort(arrayComp);
 		//Comparable[] arrayTree = Sort.treeSort(arrayComp);
 		//int[] arrayRadix = Sort.radixSort(array);
-		int[] arrayBucket = Sort.bucketSort(array);
+		//int[] arrayBucket = Sort.bucketSort(array);
 		
 		//Random value = new Random();
 		//MyTree tree = new MyTree();
@@ -31,7 +31,7 @@ public class driver {
 		//System.out.println(Sort.toString(arrayHeap));
 		//System.out.println(Sort.toString(arrayTree));
 		//System.out.println(arrayRadix.toString());
-		System.out.println(arrayBucket.toString());
+		//System.out.println(arrayBucket.toString());
 	}
 
 }
