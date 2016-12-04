@@ -23,7 +23,7 @@ public class Sort {
 			return array;
 		}
 		Comparable[] left = new Comparable[array.length];
-		Comparable[] right = new Comparable[array.length];
+		Comparable[] right = new Comparable[length];
 		int j = 0;
 		int k = 0;
 		for (int i = 1; i < length - 1; i++) {
@@ -35,15 +35,14 @@ public class Sort {
 				j++;
 			}
 		}
-		if (j > 0) {
+		if (j > 1) {
 			left = quickSortRecur(left, j);
 		}
 		if (k > 0) {
 			right = quickSortRecur(right, k);
 		}
-		for (int i = 0; i < k - 1; i++) {
-			array[i] = left[i];
-			j++;
+		for (int i = 0; i < length; i++) {
+			left[j] = right[i];
 		}
 		return left;
 	}
