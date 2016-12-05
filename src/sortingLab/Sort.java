@@ -10,51 +10,54 @@ package sortingLab;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class Sort {
 
-
   public Sort() {
 
   }
 
-
   public static Comparable[] quickSortRecur(Comparable[] array) {
-    return quickSortRecur(array, 0);
+    return quickSortRecur(array, array.length);
   }
 
-  public static Comparable[] quickSortRecur(Comparable[] array, int pivot) {
-    if (pivot == array.length - 1) {
+  public static Comparable[] quickSortRecur(Comparable[] array, int length) {
+    if (length == 1) {
+      System.out.println(array[0]);
       return array;
     }
-    Comparable[] left = new Comparable[array.length];
-    Comparable[] right = new Comparable[array.length];
+    if (length == 2) {
+      System.out.println(array[0]);
+      System.out.println(array[1]);
+      return array;
+    }
+    Comparable[] left = new Comparable[length];
+    Comparable[] right = new Comparable[length];
     int j = 0;
     int k = 0;
-    for (int i = pivot + 1; i < array.length; i++) {
-      if (array[pivot].compareTo(array[i]) < 0) {
-        right[k] = array[i];
-        k++;
-      } else {
-        Comparable temp = array[i];
-        Comparable swap;
-        for (int l = 0; l <= j; l++) {
-          if (left[l] == null) {
-            left[l] = array[i];
-          } else if (left[l].compareTo(temp) > 0) {
-            swap = left[l];
-            left[l] = temp;
-            temp = swap;
-          }
+    for (int i = 1; i < length - 1; i++) {
+      if (array[i] != null) {
+        if (array[0].compareTo(array[i]) <= 0) {
+          right[k] = array[i];
+          k++;
+        } else {
+          left[j] = array[i];
+          j++;
         }
-        j++;
       }
+    }
+    if(j > 0){
+      left = quickSortRecur(left, j + 1);
+    }
+    if (k > 0) {
+      right = quickSortRecur(right, k + 1);
     }
     left[j] = array[0];
     j++;
-    left[j + 1] = array[pivot];
-    pivot = j + 2;
-    for (int i = pivot; i < array.length; i++) {
-      left[i] = right[i - pivot];
+    for(int i = 0; i <= k; i++) {
+      if(right[i] != null){
+      left[j] = right[i];
+      j++;
+      }
     }
-    return quickSortRecur(array, pivot);
+    return left;
   }
 
   public static Comparable[] quickSortIter(Comparable[] array) {
@@ -92,6 +95,7 @@ public class Sort {
     return array;
   }
 
+
   public static Comparable[] bubbleSort(Comparable[] array) {
     boolean unordered = false;
     do {
@@ -102,7 +106,7 @@ public class Sort {
           array[i + 1] = array[i];
           array[i] = temp;
           unordered = true;
-        } 
+        }
       }
     } while (unordered);
     return array;
@@ -151,38 +155,25 @@ public class Sort {
 
   public static Comparable[] insertionSort(Comparable[] array) {
     Comparable p = array[0];
-    Comparable[] unsorted = array;
     Comparable[] sorted = new Comparable[array.length];
-    boolean unordered = false;
-    do {
-      for (int i = 0; i < unsorted.length; i++) {
-        p = unsorted[i];
-        if (p.compareTo(unsorted[i]) < 0) {
-          if (sorted.length == 0) {
-            sorted[0] = array[i];
-          } else {
-            for (int j = 0; j < sorted.length; j++) {
-              if (array[i].compareTo(sorted[j]) > 0) {
-                Comparable[] temp = new Comparable[array.length];
-                for (int q = 0; q < sorted.length - 1; q++) {
-                  temp[q] = sorted[j + q];
-                }
-                sorted[j] = unsorted[i];
-                for (int q = 0; q < sorted.length - 1; q++) {
-                  sorted[j + q + 1] = temp[q];
-                }
-              } else {
-                sorted[sorted.length] = array[i];
-              }
-            }
-          }
-          unordered = false;
-        } else {
-          unordered = true;
+    sorted[0] = p;
+    for (int i = 0; i < array.length - 1; i++) {
+      if (p.compareTo(array[i + 1]) < 0) {
+        p = array[i + 1];
+        sorted[i + 1] = p;
+      } else {
+        Comparable temp = array[i + 1];
+        int j = i;
+        while (j >= 0 && sorted[j].compareTo(array[i + 1]) > 0) {
+          j--;
         }
+        for (int q = i; q > j; q--) {
+          sorted[q + 1] = sorted[q];
+        }
+        sorted[j + 1] = temp;
       }
-    } while (unordered);
-    return array;
+    }
+    return sorted;
   }
 
   public static Comparable[] mergeSort(Comparable[] array) {
@@ -212,7 +203,6 @@ public class Sort {
     int k = 0;
     int i = 0;
     while ((first.length != j) && (second.length != k)) {
-      System.out.println(i + " " + j + " " + first.length + " " + array.length);
       if (first[j].compareTo(second[k]) < 0) {
         array[i] = first[j];
         j++;
@@ -267,23 +257,22 @@ public class Sort {
   public static Comparable[] treeSort(Comparable[] array) {
     MyTree tree = new MyTree(array[0]);
     for (int i = 1; i < array.length; i++) {
-      tree.print();
       tree = MyTree.insert(tree, array[i]);
     }
     Object[] treeArray = MyTree.inorder(tree).toArray();
-        Comparable[] sorted = new Comparable[array.length];
-    for(int i = 0; i < array.length; i++){
+    Comparable[] sorted = new Comparable[array.length];
+    for (int i = 0; i < array.length; i++) {
       sorted[i] = (Comparable) treeArray[i];
     }
     return sorted;
   }
-  
-  public static String toString(Comparable[] array){
+
+  public static String toString(Comparable[] array) {
     String sorted = "[";
-    for(int i = 0; i < array.length - 1; i++){
+    for (int i = 0; i < array.length - 1; i++) {
       sorted = sorted + array[i] + ", ";
     }
-    sorted = sorted + array[array.length-1] + "]";
+    sorted = sorted + array[array.length - 1] + "]";
     return sorted;
   }
 }
