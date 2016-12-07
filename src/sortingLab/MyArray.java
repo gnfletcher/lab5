@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
  * @param <E>
  *
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class MyArray<T> implements MyList<T> {
 	private int size;
 	private int length;
@@ -18,21 +19,18 @@ public class MyArray<T> implements MyList<T> {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public MyArray() {
 		this.length = 10;
 		this.array = (T[]) Array.newInstance(MyArray.class, length);
 		this.size = 0;
 	}
 
-	@SuppressWarnings("unchecked")
 	public MyArray(int size) {
 		this.length = size;
 		this.array = (T[]) Array.newInstance(MyArray.class, length);
 		this.size = size;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean add(int index, T object) {
 		T[] newArray;
@@ -54,7 +52,6 @@ public class MyArray<T> implements MyList<T> {
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean add(T object) {
 		T[] newArray;
@@ -72,7 +69,6 @@ public class MyArray<T> implements MyList<T> {
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean clear() {
 		this.array = (T[]) new Object[10];
@@ -151,7 +147,6 @@ public class MyArray<T> implements MyList<T> {
 
 	@Override
 	public T[] subList(int fromIndex, int toIndex) {
-		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) new Object[toIndex - fromIndex + 1];
 		int j = 0;
 		for (int i = fromIndex; i < toIndex; i++) {
@@ -177,7 +172,6 @@ public class MyArray<T> implements MyList<T> {
 
 	@Override
 	public boolean shift(int positions) {
-		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) new Object[array.length];
 		if (positions > 0) {
 			int j = 0;
@@ -209,4 +203,83 @@ public class MyArray<T> implements MyList<T> {
 	public int getSize() {
 		return size;
 	}
+	
+	public  T[] mergeSort() {
+	    if (size == 1) {
+	      return array;
+	    }
+	    if (size == 2) {
+	      T first = array[0];
+	      if (((Comparable) array[0]).compareTo(array[1]) > 0) {
+	        array[0] = array[1];
+	        array[1] = first;
+	      }
+	      return array;
+	    }
+	    int mid = size / 2;
+	    MyArray first = new MyArray();
+	    MyArray second = new MyArray();
+	    for (int i = 0; i < mid; i++) {
+	      first.add(array[i]);
+	    }
+	    for (int i = mid; i < array.length; i++) {
+	      second.add(array[i]);
+	    }
+	    first.mergeSort();
+	    second.mergeSort();
+	    int j = 0;
+	    int k = 0;
+	    int i = 0;
+	    while ((first.getSize() != j) && (second.getSize() != k)) {
+	      if (((Comparable) first.get(j)).compareTo(second.get(k)) < 0) {
+	        array[i] = (T) first.get(j);
+	        j++;
+	        i++;
+	      } else {
+	        array[i] = (T) second.get(k);
+	        k++;
+	        i++;
+	      }
+	    }
+	    if (first.length == j) {
+	      for (; i < array.length; i++) {
+	        array[i] = (T) second.get(k);
+	        k++;
+	      }
+	    } else {
+	      for (; i < array.length; i++) {
+	        array[i] = (T) first.get(j);
+	        j++;
+	      }
+	    }
+	    return array;
+	  }
+	
+	public static MyArray radixSort(MyArray array) {
+	    int digits = String.valueOf(array.get(0)).length();
+	    for (int i = 1; i < array.length; i++) {
+	      if (String.valueOf(array.get(i)).length() > digits) {
+	        digits = String.valueOf(array.get(i)).length();
+	      }
+	    }
+	    int i = 1;
+	    while (i <= digits) {
+	      MyArray bucket = new MyArray();
+	      int j = 0;
+	      int k = 0;
+	      while (j < 10) {
+	        for (int l = 0; l < array.size; l++) {
+	          if ((int) array.get(l) % (int) (Math.pow(10, i)) / (int) (Math.pow(10, i - 1)) == j) {
+	            bucket.set(l, array.get(l));
+	            k++;
+	          }
+	        }
+	        j++;
+	      }
+	      array = bucket;
+	      i++;
+	    }
+	    return array;
+	  }
+
 }

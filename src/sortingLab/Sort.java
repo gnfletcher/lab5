@@ -43,7 +43,7 @@ public class Sort {
         }
       }
     }
-    if(j > 0){
+    if (j > 0) {
       left = quickSortRecur(left, j + 1);
     }
     if (k > 0) {
@@ -51,10 +51,10 @@ public class Sort {
     }
     left[j] = array[0];
     j++;
-    for(int i = 0; i <= k; i++) {
-      if(right[i] != null){
-      left[j] = right[i];
-      j++;
+    for (int i = 0; i <= k; i++) {
+      if (right[i] != null) {
+        left[j] = right[i];
+        j++;
       }
     }
     return left;
@@ -62,34 +62,22 @@ public class Sort {
 
   public static Comparable[] quickSortIter(Comparable[] array) {
     int pivot = 0;
-    Comparable[] left = new Comparable[array.length];
-    Comparable[] right = new Comparable[array.length];
     int j = 0;
     int k = 0;
     while (pivot < array.length) {
       for (int i = pivot + 1; i < array.length; i++) {
         if (array[pivot].compareTo(array[i]) < 0) {
-          right[k] = array[i];
-          k++;
-        } else {
-          Comparable temp = array[i];
-          Comparable swap;
-          for (int l = 0; l <= j; l++) {
-            if (left[l] == null) {
-              left[l] = array[i];
-            } else if (left[l].compareTo(temp) > 0) {
-              swap = left[l];
-              left[l] = temp;
-              temp = swap;
-            }
+          if (i - k > 1) {
+            Comparable temp = array[i];
+            array[i] = array[k + 1];
+            array[k + 1] = temp;
           }
-          j++;
+          k++;
         }
-      }
-      left[j + 1] = array[pivot];
-      pivot = j + 2;
-      for (int i = pivot; i < array.length; i++) {
-        left[i] = right[i - pivot];
+        Comparable temp = array[pivot];
+        array[pivot] = array[k];
+        array[k] = temp;
+        pivot = k + 1;
       }
     }
     return array;
@@ -113,27 +101,76 @@ public class Sort {
   }
 
   public static int[] bucketSort(int[] array) {
-    int digits = String.valueOf(array[0]).length();
-    for (int i = 1; i < array.length; i++) {
-      if (String.valueOf(array[i]).length() > digits) {
-        digits = String.valueOf(array[i]).length();
-      }
+    MyArray ten = new MyArray();
+    MyArray hundred = new MyArray();
+    MyArray thousand = new MyArray();
+    MyArray tenThousand = new MyArray();
+    MyArray hundredThousand = new MyArray();
+    MyArray million = new MyArray();
+    MyArray tenMillion = new MyArray();
+    MyArray hundredMillion = new MyArray();
+    MyArray billion = new MyArray();
+
+    for (int i = 0; i < array.length; i++) {
+     if(array[i] / 10 < 0){
+       ten.add(array[i]);
+     } else if (array[i] / 100 < 0) {
+       hundred.add(array[i]);
+     } else if (array[i] / 1000 < 0) {
+       thousand.add(array[i]);
+     } else if (array[i] / 10000 < 0) {
+       tenThousand.add(array[i]);
+     } else if (array[i] / 100000 < 0) {
+       hundredThousand.add(array[i]);
+     } else if (array[i] / 1000000 < 0) {
+       million.add(array[i]);
+     } else if (array[i] / 10000000 < 0) {
+       tenMillion.add(array[i]);
+     } else if (array[i] / 100000000 < 0) {
+       hundredMillion.add(array[i]);
+     } else {
+       billion.add(array[i]);
+     }
     }
-    int i = 0;
-    while (i < digits) {
-      int[] bucket = new int[array.length];
-      int j = 0;
-      int k = 0;
-      while (j < 10) {
-        for (int l = 0; l < array.length; l++) {
-          if ((array[l] / Math.pow(10, 1)) % 10 == j) {
-            bucket[k] = array[l];
-            k++;
-          }
-        }
-      }
-      array = bucket;
-      i++;
+    
+    ten = MyArray.radixSort(ten);
+    hundred = MyArray.radixSort(hundred);
+    thousand = MyArray.radixSort(thousand);
+    tenThousand = MyArray.radixSort(tenThousand);
+    hundredThousand = MyArray.radixSort(hundredThousand);
+    million = MyArray.radixSort(million);
+    tenMillion = MyArray.radixSort(tenMillion);
+    hundredMillion = MyArray.radixSort(hundredMillion);
+    billion = MyArray.radixSort(billion);
+    
+    int j = 0;
+    
+    for(int i = 0; i < ten.getSize(); i++){
+      array[j] = (int) ten.get(i);
+    }
+    for(int i = 0; i < hundred.getSize(); i++){
+      array[j] = (int) hundred.get(i);
+    }
+    for(int i = 0; i < thousand.getSize(); i++){
+      array[j] = (int) thousand.get(i);
+    }
+    for(int i = 0; i < tenThousand.getSize(); i++){
+      array[j] = (int) tenThousand.get(i);
+    }
+    for(int i = 0; i < hundredThousand.getSize(); i++){
+      array[j] = (int) hundredThousand.get(i);
+    }
+    for(int i = 0; i < million.getSize(); i++){
+      array[j] = (int) million.get(i);
+    }
+    for(int i = 0; i < tenMillion.getSize(); i++){
+      array[j] = (int) tenMillion.get(i);
+    }
+    for(int i = 0; i < hundredMillion.getSize(); i++){
+      array[j] = (int) hundredMillion.get(i);
+    }
+    for(int i = 0; i < billion.getSize(); i++){
+      array[j] = (int) billion.get(i);
     }
     return array;
   }
@@ -235,18 +272,19 @@ public class Sort {
         digits = String.valueOf(array[i]).length();
       }
     }
-    int i = 0;
-    while (i < digits) {
+    int i = 1;
+    while (i <= digits) {
       int[] bucket = new int[array.length];
       int j = 0;
       int k = 0;
       while (j < 10) {
         for (int l = 0; l < array.length; l++) {
-          if ((array[l] / Math.pow(10, 1)) % 10 == j) {
+          if (array[l] % (int) (Math.pow(10, i)) / (int) (Math.pow(10, i - 1)) == j) {
             bucket[k] = array[l];
             k++;
           }
         }
+        j++;
       }
       array = bucket;
       i++;
@@ -264,6 +302,15 @@ public class Sort {
     for (int i = 0; i < array.length; i++) {
       sorted[i] = (Comparable) treeArray[i];
     }
+    return sorted;
+  }
+
+  public static String toString(int[] array) {
+    String sorted = "[";
+    for (int i = 0; i < array.length - 1; i++) {
+      sorted = sorted + array[i] + ", ";
+    }
+    sorted = sorted + array[array.length - 1] + "]";
     return sorted;
   }
 
