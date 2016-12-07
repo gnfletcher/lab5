@@ -480,7 +480,7 @@ public class MyArray<T> implements MyList<T> {
     T[] right = (T[]) new Object[length];
     int j = 0;
     int k = 0;
-    for (int i = 1; i < length - 1; i++) {
+    for (int i = 1; i < length; i++) {
       if (array[i] != null) {
         if (((Comparable) array[0]).compareTo(array[i]) <= 0) {
           right[k] = array[i];
@@ -519,7 +519,7 @@ public class MyArray<T> implements MyList<T> {
     int pivot = 0;
     int j = 0;
     int k = 0;
-    while (pivot < array.length) {
+    while (pivot < array.length - 1) {
       for (int i = pivot + 1; i < array.length; i++) {
         if (((Comparable) array[pivot]).compareTo(array[i]) < 0) {
           if (i - k > 1) {
@@ -532,7 +532,7 @@ public class MyArray<T> implements MyList<T> {
         T temp = array[pivot];
         array[pivot] = array[k];
         array[k] = temp;
-        pivot = k + 1;
+        pivot++;
       }
     }
   }
