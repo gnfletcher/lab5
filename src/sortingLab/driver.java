@@ -5,7 +5,8 @@ import java.util.Random;
 public class driver {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public static void main(String[] args) {
-
+    float startTime;
+    float endTime;
     int size = 15;
     Random value = new Random();
     MyArray<Comparable> array = new MyArray(size);
@@ -14,9 +15,10 @@ public class driver {
     }
 
     System.out.println(array.toString());
+    startTime = System.nanoTime();
 
     // array.mergeSort();
-     array.quickSortIter();
+    array.quickSortIter();
     // array.quickSortRecur();
     // array.insertionSort();
     // array.bubbleSort();
@@ -25,6 +27,8 @@ public class driver {
     // array.treeSort();
     // array.heapSort();
 
+    endTime = System.nanoTime();
+    System.out.printf("List generation took %.5f seconds.%n", (endTime - startTime) / 1000000000);
     System.out.println(array.toString());
 
   }

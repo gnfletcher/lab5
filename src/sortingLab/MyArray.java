@@ -268,33 +268,6 @@ public class MyArray<T> implements MyList<T> {
     return array;
   }
 
-  public MyArray radixSort(MyArray array) {
-    int digits = String.valueOf(array.get(0)).length();
-    for (int i = 1; i < array.length; i++) {
-      if (String.valueOf(array.get(i)).length() > digits) {
-        digits = String.valueOf(array.get(i)).length();
-      }
-    }
-    int i = 1;
-    while (i <= digits) {
-      MyArray bucket = new MyArray();
-      int j = 0;
-      int k = 0;
-      while (j < 10) {
-        for (int l = 0; l < array.size; l++) {
-          if ((int) array.get(l) % (int) (Math.pow(10, i)) / (int) (Math.pow(10, i - 1)) == j) {
-            bucket.add(array.get(l));
-            k++;
-          }
-        }
-        j++;
-      }
-      array = bucket;
-      i++;
-    }
-    return array;
-  }
-
   public void radixSort() {
     int digits = String.valueOf(array[0]).length();
     for (int i = 1; i < array.length; i++) {
@@ -354,19 +327,19 @@ public class MyArray<T> implements MyList<T> {
       }
     }
 
-    ten = ten.radixSort(ten);
-    hundred = hundred.radixSort(hundred);
-    thousand = thousand.radixSort(thousand);
-    tenThousand = tenThousand.radixSort(tenThousand);
-    hundredThousand = hundredThousand.radixSort(hundredThousand);
-    million = million.radixSort(million);
-    tenMillion = tenMillion.radixSort(tenMillion);
-    hundredMillion = hundredMillion.radixSort(hundredMillion);
-    billion = billion.radixSort(billion);
+    ten.radixSort();
+    hundred.radixSort();
+    thousand.radixSort();
+    tenThousand.radixSort();
+    hundredThousand.radixSort();
+    million.radixSort();
+    tenMillion.radixSort();
+    hundredMillion.radixSort();
+    billion.radixSort();
 
     int j = 0;
     for (int i = 0; i < ten.getSize(); i++) {
-      array[i] = (T) hundred.get(i);
+      array[i] = (T) ten.get(i);
       j++;
     }
     for (int i = 0; i < hundred.getSize(); i++) {
@@ -517,22 +490,27 @@ public class MyArray<T> implements MyList<T> {
 
   public void quickSortIter() {
     int pivot = 0;
+    int partition = 0;
     int j = 0;
     int k = 0;
+    T[] left = (T[]) new Object[length];
+    T[] right = (T[]) new Object[length];
+    for (int i = pivot + 1; i < array.length; i++) {
+      if (((Comparable) array[pivot]).compareTo(array[i]) > 0) {
+        j++;
+      } else {
+        right[k] = array[i];
+        k++;
+      }
+    }
     while (pivot < array.length - 1) {
+      left = (T[]) new Object[length];
+      right = (T[]) new Object[length];
       for (int i = pivot + 1; i < array.length; i++) {
         if (((Comparable) array[pivot]).compareTo(array[i]) < 0) {
-          if (i - k > 1) {
-            T temp = array[i];
-            array[i] = array[k + 1];
-            array[k + 1] = temp;
-          }
-          k++;
+          
         }
-        T temp = array[pivot];
-        array[pivot] = array[k];
-        array[k] = temp;
-        pivot++;
+        
       }
     }
   }
