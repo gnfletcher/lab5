@@ -14,7 +14,9 @@ public class driver {
 
     System.out.println(array.toString());
 
-     array.mergeSort();
+    // array.mergeSort();
+    // array.quickSortRecur();
+    array.quickSortIter();
     // array.treeSort();
     // array.heapSort();
     // array.bubbleSort();

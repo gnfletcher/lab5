@@ -469,11 +469,11 @@ public class MyArray<T> implements MyList<T> {
     this.array = (T[]) sorted;
   }
   
-  public static Comparable[] quickSortRecur(Comparable[] array) {
-    return quickSortRecur(array, array.length);
+  public void quickSortRecur() {
+    this.array = quickSortRecur(array);
   }
 
-  public static Comparable[] quickSortRecur(Comparable[] array, int length) {
+  public T[] quickSortRecur(T[] array) {
     if (length == 1) {
       System.out.println(array[0]);
       return array;
@@ -483,13 +483,13 @@ public class MyArray<T> implements MyList<T> {
       System.out.println(array[1]);
       return array;
     }
-    Comparable[] left = new Comparable[length];
-    Comparable[] right = new Comparable[length];
+    T[] left = (T[]) new Object[length];
+    T[] right = (T[]) new Object[length];
     int j = 0;
     int k = 0;
     for (int i = 1; i < length - 1; i++) {
       if (array[i] != null) {
-        if (array[0].compareTo(array[i]) <= 0) {
+        if (((Comparable) array[0]).compareTo(array[i]) <= 0) {
           right[k] = array[i];
           k++;
         } else {
@@ -499,10 +499,10 @@ public class MyArray<T> implements MyList<T> {
       }
     }
     if (j > 0) {
-      left = quickSortRecur(left, j + 1);
+      left = quickSortRecur(left);
     }
     if (k > 0) {
-      right = quickSortRecur(right, k + 1);
+      right = quickSortRecur(right);
     }
     left[j] = array[0];
     j++;
@@ -515,26 +515,25 @@ public class MyArray<T> implements MyList<T> {
     return left;
   }
 
-  public static Comparable[] quickSortIter(Comparable[] array) {
+  public void quickSortIter() {
     int pivot = 0;
     int j = 0;
     int k = 0;
     while (pivot < array.length) {
       for (int i = pivot + 1; i < array.length; i++) {
-        if (array[pivot].compareTo(array[i]) < 0) {
+        if (((Comparable) array[pivot]).compareTo(array[i]) < 0) {
           if (i - k > 1) {
-            Comparable temp = array[i];
+            T temp = array[i];
             array[i] = array[k + 1];
             array[k + 1] = temp;
           }
           k++;
         }
-        Comparable temp = array[pivot];
+        T temp = array[pivot];
         array[pivot] = array[k];
         array[k] = temp;
         pivot = k + 1;
       }
     }
-    return array;
   }
 }
