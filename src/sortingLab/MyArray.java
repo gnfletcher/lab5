@@ -28,7 +28,7 @@ public class MyArray<T> implements MyList<T> {
   public MyArray(int size) {
     this.length = size;
     this.array = (T[]) Array.newInstance(MyArray.class, length);
-    this.size = size;
+    this.size = 0;
   }
 
   @Override
@@ -204,12 +204,12 @@ public class MyArray<T> implements MyList<T> {
     return size;
   }
 
-  public String toString(MyArray array) {
+  public String toString() {
     String sorted = "[";
     for (int i = 0; i < size - 1; i++) {
-      sorted = sorted + array.get(i) + ", ";
+      sorted = sorted + array[i] + ", ";
     }
-    sorted = sorted + array.get(size -1) + "]";
+    sorted = sorted + array[size - 1] + "]";
     return sorted;
   }
 
@@ -231,7 +231,7 @@ public class MyArray<T> implements MyList<T> {
     for (int i = 0; i < mid; i++) {
       first.add(array[i]);
     }
-    for (int i = mid; i < array.length; i++) {
+    for (int i = mid; i < size; i++) {
       second.add(array[i]);
     }
     first.mergeSort();
@@ -239,7 +239,10 @@ public class MyArray<T> implements MyList<T> {
     int j = 0;
     int k = 0;
     int i = 0;
-    while ((first.getSize() != j) && (second.getSize() != k)) {
+    while ((first.size -1  != j) && (second.size -1 != k)) {
+      System.out.println(j);
+      System.out.println(first.size);
+      System.out.println(first.get(j));
       if (((Comparable) first.get(j)).compareTo(second.get(k)) < 0) {
         array[i] = (T) first.get(j);
         j++;
@@ -291,7 +294,33 @@ public class MyArray<T> implements MyList<T> {
     return array;
   }
 
-  public static MyArray bucketSort(MyArray array) {
+  public void radixSort() {
+    int digits = String.valueOf(array[0]).length();
+    for (int i = 1; i < array.length; i++) {
+      if (String.valueOf(array[i]).length() > digits) {
+        digits = String.valueOf(array[i]).length();
+      }
+    }
+    int i = 1;
+    while (i <= digits) {
+      T[] bucket = (T[]) new Object[array.length];
+      int j = 0;
+      int k = 0;
+      while (j < 10) {
+        for (int l = 0; l < array.length; l++) {
+          if ((int) array[l] % (int) (Math.pow(10, i)) / (int) (Math.pow(10, i - 1)) == j) {
+            bucket[k] = array[l];
+            k++;
+          }
+        }
+        j++;
+      }
+      array = bucket;
+      i++;
+    }
+
+  }
+  public void bucketSort() {
     MyArray ten = new MyArray();
     MyArray hundred = new MyArray();
     MyArray thousand = new MyArray();
@@ -303,24 +332,24 @@ public class MyArray<T> implements MyList<T> {
     MyArray billion = new MyArray();
 
     for (int i = 0; i < array.length; i++) {
-      if ((int) array.get(i) / 10 < 0) {
-        ten.add(array.get(i));
-      } else if ((int) array.get(i) / 100 < 0) {
-        hundred.add(array.get(i));
-      } else if ((int) array.get(i) / 1000 < 0) {
-        thousand.add(array.get(i));
-      } else if ((int) array.get(i) / 10000 < 0) {
-        tenThousand.add(array.get(i));
-      } else if ((int) array.get(i) / 100000 < 0) {
-        hundredThousand.add(array.get(i));
-      } else if ((int) array.get(i) / 1000000 < 0) {
-        million.add(array.get(i));
-      } else if ((int) array.get(i) / 10000000 < 0) {
-        tenMillion.add(array.get(i));
-      } else if ((int) array.get(i) / 100000000 < 0) {
-        hundredMillion.add(array.get(i));
+      if ((int) array[i] / 10 < 0) {
+        ten.add(array[i]);
+      } else if ((int) array[i] / 100 < 0) {
+        hundred.add(array[i]);
+      } else if ((int) array[i] / 1000 < 0) {
+        thousand.add(array[i]);
+      } else if ((int) array[i] / 10000 < 0) {
+        tenThousand.add(array[i]);
+      } else if ((int) array[i] / 100000 < 0) {
+        hundredThousand.add(array[i]);
+      } else if ((int) array[i] / 1000000 < 0) {
+        million.add(array[i]);
+      } else if ((int) array[i] / 10000000 < 0) {
+        tenMillion.add(array[i]);
+      } else if ((int) array[i] / 100000000 < 0) {
+        hundredMillion.add(array[i]);
       } else {
-        billion.add((int) array.get(i));
+        billion.add(array[i]);
       }
     }
 
@@ -334,31 +363,56 @@ public class MyArray<T> implements MyList<T> {
     hundredMillion = hundredMillion.radixSort(hundredMillion);
     billion = billion.radixSort(billion);
 
-  
-    for (int i = 0; i < hundred.getSize() -1; i++) {
-     ten.add(hundred.get(i));
+    int j = 0;
+    for (int i = 0; i < ten.getSize(); i++) {
+      array[i] = (T) hundred.get(i);
+      j++;
     }
-    for (int i = 0; i < thousand.getSize() -1; i++) {
-      ten.add(thousand.get(i));
+    for (int i = 0; i < hundred.getSize(); i++) {
+      array[i] = (T) hundred.get(i);
+      j++;
     }
-    for (int i = 0; i < tenThousand.getSize() -1; i++) {
-      ten.add(tenThousand.get(i));
+    for (int i = 0; i < thousand.getSize(); i++) {
+      array[i] = (T) thousand.get(i);
+      j++;
     }
-    for (int i = 0; i < hundredThousand.getSize() -1; i++) {
-      ten.add(hundredThousand.get(i));
+    for (int i = 0; i < tenThousand.getSize(); i++) {
+      array[i] = (T) tenThousand.get(i);
+      j++;
     }
-    for (int i = 0; i < million.getSize() -1; i++) {
-      ten.add(million.get(i));
+    for (int i = 0; i < hundredThousand.getSize(); i++) {
+      array[i] = (T) hundredThousand.get(i);
+      j++;
     }
-    for (int i = 0; i < tenMillion.getSize() -1; i++) {
-      ten.add(tenMillion.get(i));
+    for (int i = 0; i < million.getSize(); i++) {
+      array[i] = (T) million.get(i);
+      j++;
     }
-    for (int i = 0; i < hundredMillion.getSize() -1; i++) {
-      ten.add(hundredMillion.get(i));
+    for (int i = 0; i < tenMillion.getSize(); i++) {
+      array[i] = (T) tenMillion.get(i);
+      j++;
     }
-    for (int i = 0; i < billion.getSize() -1; i++) {
-      ten.add(billion.get(i));
+    for (int i = 0; i < hundredMillion.getSize(); i++) {
+      array[j] = (T) hundredMillion.get(i);
+      j++;
     }
-    return ten;
+    for (int i = 0; i < billion.getSize(); i++) {
+      array[j] = (T) billion.get(i);
+      j++;
+    }
+
   }
+
+  public void treeSort() {
+    MyTree tree = new MyTree((Comparable) array[0]);
+    for (int i = 1; i < array.length; i++) {
+      tree = MyTree.insert(tree, (Comparable) array[i]);
+    }
+    Object[] treeArray = MyTree.inorder(tree).toArray();
+    for (int i = 0; i < array.length; i++) {
+      array[i] = (T) treeArray[i];
+    }
+
+  }
+
 }
