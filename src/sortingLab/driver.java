@@ -18,17 +18,17 @@ public class driver {
     startTime = System.nanoTime();
 
     // array.mergeSort();
-    array.quickSortIter();
+    // array.quickSortIter();
     // array.quickSortRecur();
     // array.insertionSort();
     // array.bubbleSort();
-    // array.bucketSort();
+     array.bucketSort();
     // array.radixSort();
     // array.treeSort();
     // array.heapSort();
 
     endTime = System.nanoTime();
-    System.out.printf("List generation took %.5f seconds.%n", (endTime - startTime) / 1000000000);
+    System.out.printf("List sort took %.5f seconds.%n", (endTime - startTime) / 1000000000);
     System.out.println(array.toString());
 
   }
