@@ -213,58 +213,60 @@ public class MyArray<T> implements MyList<T> {
     return sorted;
   }
 
-  public T[] mergeSort() {
-    if (size == 1) {
+  public void mergeSort() {
+    this.array = mergeSort(array);
+  }
+  
+  public T[] mergeSort(T[] array) {
+    if (array.length == 1) {
       return array;
     }
-    if (size == 2) {
-      T first = array[0];
+    if (array.length == 2) {
+      Comparable first = (Comparable) array[0];
       if (((Comparable) array[0]).compareTo(array[1]) > 0) {
         array[0] = array[1];
-        array[1] = first;
+        array[1] = (T) first;
       }
       return array;
     }
-    int mid = size / 2;
-    MyArray first = new MyArray();
-    MyArray second = new MyArray();
+    int mid = array.length / 2;
+    T[] first = (T[]) new Object[mid];
+    T[] second = (T[]) new Object[array.length - mid];
     for (int i = 0; i < mid; i++) {
-      first.add(array[i]);
+      first[i] = array[i];
     }
-    for (int i = mid; i < size; i++) {
-      second.add(array[i]);
+    for (int i = mid; i < array.length; i++) {
+      second[i - mid] = array[i];
     }
-    first.mergeSort();
-    second.mergeSort();
+    first = mergeSort(first);
+    second = mergeSort((T[]) second);
     int j = 0;
     int k = 0;
     int i = 0;
-    while ((first.size -1  != j) && (second.size -1 != k)) {
-      System.out.println(j);
-      System.out.println(first.size);
-      System.out.println(first.get(j));
-      if (((Comparable) first.get(j)).compareTo(second.get(k)) < 0) {
-        array[i] = (T) first.get(j);
+    while ((first.length != j) && (second.length != k)) {
+      if (((Comparable) first[j]).compareTo(second[k]) < 0) {
+        array[i] = first[j];
         j++;
         i++;
       } else {
-        array[i] = (T) second.get(k);
+        array[i] = second[k];
         k++;
         i++;
       }
     }
     if (first.length == j) {
       for (; i < array.length; i++) {
-        array[i] = (T) second.get(k);
+        array[i] = second[k];
         k++;
       }
     } else {
       for (; i < array.length; i++) {
-        array[i] = (T) first.get(j);
+        array[i] = first[j];
         j++;
       }
     }
     return array;
+
   }
 
   public MyArray radixSort(MyArray array) {
@@ -415,4 +417,124 @@ public class MyArray<T> implements MyList<T> {
 
   }
 
+  public void heapSort() {
+    MyHeap heap = new MyHeap();
+    heap.makeHeap((Comparable) array[0]);
+    for (int i = 1; i < array.length; i++) {
+      heap.insert((Comparable) array[i]);
+    }
+    int i = 0;
+    while (!heap.isEmpty()) {
+      array[i] = (T) heap.findMin();
+      heap.deleteMin();
+      i++;
+    }
+  }
+  
+  public void bubbleSort() {
+    boolean unordered = false;
+    do {
+      unordered = false;
+      for (int i = 0; i < array.length - 1; i++) {
+        if (((Comparable) array[i]).compareTo(array[i + 1]) > 0) {
+          T temp = array[i + 1];
+          array[i + 1] = array[i];
+          array[i] = temp;
+          unordered = true;
+        }
+      }
+    } while (unordered);
+  }
+  
+  public void insertionSort() {
+    Comparable p = (Comparable) array[0];
+    Comparable[] sorted = new Comparable[array.length];
+    sorted[0] = p;
+    for (int i = 0; i < array.length - 1; i++) {
+      if (p.compareTo(array[i + 1]) < 0) {
+        p = (Comparable) array[i + 1];
+        sorted[i + 1] = p;
+      } else {
+        Comparable temp = (Comparable) array[i + 1];
+        int j = i;
+        while (j >= 0 && sorted[j].compareTo(array[i + 1]) > 0) {
+          j--;
+        }
+        for (int q = i; q > j; q--) {
+          sorted[q + 1] = sorted[q];
+        }
+        sorted[j + 1] = temp;
+      }
+    }
+    this.array = (T[]) sorted;
+  }
+  
+  public static Comparable[] quickSortRecur(Comparable[] array) {
+    return quickSortRecur(array, array.length);
+  }
+
+  public static Comparable[] quickSortRecur(Comparable[] array, int length) {
+    if (length == 1) {
+      System.out.println(array[0]);
+      return array;
+    }
+    if (length == 2) {
+      System.out.println(array[0]);
+      System.out.println(array[1]);
+      return array;
+    }
+    Comparable[] left = new Comparable[length];
+    Comparable[] right = new Comparable[length];
+    int j = 0;
+    int k = 0;
+    for (int i = 1; i < length - 1; i++) {
+      if (array[i] != null) {
+        if (array[0].compareTo(array[i]) <= 0) {
+          right[k] = array[i];
+          k++;
+        } else {
+          left[j] = array[i];
+          j++;
+        }
+      }
+    }
+    if (j > 0) {
+      left = quickSortRecur(left, j + 1);
+    }
+    if (k > 0) {
+      right = quickSortRecur(right, k + 1);
+    }
+    left[j] = array[0];
+    j++;
+    for (int i = 0; i <= k; i++) {
+      if (right[i] != null) {
+        left[j] = right[i];
+        j++;
+      }
+    }
+    return left;
+  }
+
+  public static Comparable[] quickSortIter(Comparable[] array) {
+    int pivot = 0;
+    int j = 0;
+    int k = 0;
+    while (pivot < array.length) {
+      for (int i = pivot + 1; i < array.length; i++) {
+        if (array[pivot].compareTo(array[i]) < 0) {
+          if (i - k > 1) {
+            Comparable temp = array[i];
+            array[i] = array[k + 1];
+            array[k + 1] = temp;
+          }
+          k++;
+        }
+        Comparable temp = array[pivot];
+        array[pivot] = array[k];
+        array[k] = temp;
+        pivot = k + 1;
+      }
+    }
+    return array;
+  }
 }

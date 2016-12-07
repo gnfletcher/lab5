@@ -13,8 +13,12 @@ public class driver {
     }
 
     System.out.println(array.toString());
-    
+
      array.mergeSort();
+    // array.treeSort();
+    // array.heapSort();
+    // array.bubbleSort();
+    // array.insertionSort();
     // array.radixSort();
     // array.bucketSort();
 
