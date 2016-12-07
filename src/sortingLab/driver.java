@@ -3,6 +3,7 @@ package sortingLab;
 import java.util.Random;
 
 public class driver {
+  @SuppressWarnings({"rawtypes", "unchecked"})
   public static void main(String[] args) {
 
     int size = 15;
@@ -15,14 +16,14 @@ public class driver {
     System.out.println(array.toString());
 
     // array.mergeSort();
-    // array.quickSortRecur();
-    array.quickSortIter();
+    // array.quickSortIter();
+     array.quickSortRecur();
+    // array.insertionSort();
+    // array.bubbleSort();
+    // array.bucketSort();
+    // array.radixSort();
     // array.treeSort();
     // array.heapSort();
-    // array.bubbleSort();
-    // array.insertionSort();
-    // array.radixSort();
-    // array.bucketSort();
 
     System.out.println(array.toString());
 

@@ -239,7 +239,7 @@ public class MyArray<T> implements MyList<T> {
       second[i - mid] = array[i];
     }
     first = mergeSort(first);
-    second = mergeSort((T[]) second);
+    second = mergeSort( second);
     int j = 0;
     int k = 0;
     int i = 0;
@@ -266,7 +266,6 @@ public class MyArray<T> implements MyList<T> {
       }
     }
     return array;
-
   }
 
   public MyArray radixSort(MyArray array) {
@@ -470,17 +469,11 @@ public class MyArray<T> implements MyList<T> {
   }
   
   public void quickSortRecur() {
-    this.array = quickSortRecur(array);
+    this.array = quickSortRecur(array, size);
   }
 
-  public T[] quickSortRecur(T[] array) {
+  public T[] quickSortRecur(T[] array, int length) {
     if (length == 1) {
-      System.out.println(array[0]);
-      return array;
-    }
-    if (length == 2) {
-      System.out.println(array[0]);
-      System.out.println(array[1]);
       return array;
     }
     T[] left = (T[]) new Object[length];
@@ -498,21 +491,28 @@ public class MyArray<T> implements MyList<T> {
         }
       }
     }
-    if (j > 0) {
-      left = quickSortRecur(left);
-    }
-    if (k > 0) {
-      right = quickSortRecur(right);
-    }
     left[j] = array[0];
     j++;
-    for (int i = 0; i <= k; i++) {
-      if (right[i] != null) {
-        left[j] = right[i];
+    if (j > 0) {
+      left = quickSortRecur(left, j);
+    }
+    if (k > 0) {
+      right = quickSortRecur(right, k);
+    }
+    j = 0;
+    for (int i = 0; i < left.length; i++) {
+      if (left[i] != null) {
+        array[j] = left[i];
         j++;
       }
     }
-    return left;
+    for (int i = 0; i < right.length; i++) {
+      if (right[i] != null) {
+        array[j] = right[i];
+        j++;
+      }
+    }
+    return array;
   }
 
   public void quickSortIter() {
