@@ -708,7 +708,7 @@ public class MyArray<T> implements MyList<T> {
       array[partition] = array[pivot];
       array[pivot] = temp;
       if (partition < array.length) {
-        pivot = partition + 1;
+        //pivot = partition + 1;
         for (int i = 0; i < partition; i++) {
           if (((Comparable) array[i]).compareTo(array[i + 1]) > 0) {
             pivot = i;
