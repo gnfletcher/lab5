@@ -6,9 +6,12 @@ package sortingLab;
 import java.lang.reflect.Array;
 
 /**
- * @author FletcherG
- * @param <E>
+ * Implements MyList interface as an array.
+ * 
+ * @author Greg Fletcher
+ * @author Sean O'Donnell
  *
+ * @param <T> list type
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class MyArray<T> implements MyList<T> {
@@ -17,7 +20,7 @@ public class MyArray<T> implements MyList<T> {
   private T[] array;
 
   /**
-   * 
+   * Default constructor initializes an empty array of length 10.
    */
   public MyArray() {
     this.length = 10;
@@ -25,12 +28,24 @@ public class MyArray<T> implements MyList<T> {
     this.size = 0;
   }
 
+  /**
+   * Constructor creating an array with the given size
+   * 
+   * @param length
+   */
   public MyArray(int size) {
     this.length = size;
     this.array = (T[]) Array.newInstance(MyArray.class, length);
     this.size = 0;
   }
 
+  /**
+   * Adds element at a given index.
+   * 
+   * @param index index to add at.
+   * @param object element to be added.
+   * @return boolean if operation was successful.
+   */
   @Override
   public boolean add(int index, T object) {
     T[] newArray;
@@ -52,6 +67,13 @@ public class MyArray<T> implements MyList<T> {
     return true;
   }
 
+  /**
+   * Adds element at the end of the list.
+   * 
+   * @param index index to add at.
+   * @param object element to be added.
+   * @return boolean if operation was successful.
+   */
   @Override
   public boolean add(T object) {
     T[] newArray;
@@ -69,6 +91,11 @@ public class MyArray<T> implements MyList<T> {
     return true;
   }
 
+  /**
+   * Clears list of all elements.
+   * 
+   * @return boolean if operation was successful.
+   */
   @Override
   public boolean clear() {
     this.array = (T[]) new Object[10];
@@ -77,6 +104,12 @@ public class MyArray<T> implements MyList<T> {
     return true;
   }
 
+  /**
+   * Searches list for given element.
+   * 
+   * @param object to search for in list.
+   * @return boolean if operation was successful.
+   */
   @Override
   public boolean contains(T object) {
     for (int i = 0; i < this.size; i++) {
@@ -87,11 +120,23 @@ public class MyArray<T> implements MyList<T> {
     return false;
   }
 
+  /**
+   * Retrieves element at given index.
+   * 
+   * @param index of element to retrieve.
+   * @return element
+   */
   @Override
   public T get(int index) {
     return (T) array[index];
   }
 
+  /**
+   * Searches list for given element to find index value.
+   * 
+   * @param object to search for in list.
+   * @return int value of the element's index.
+   */
   @Override
   public int indexOf(T object) {
     for (int i = 0; i < this.size; i++) {
@@ -102,6 +147,11 @@ public class MyArray<T> implements MyList<T> {
     return -1;
   }
 
+  /**
+   * Check if list is empty.
+   * 
+   * @return boolean if list does not have content.
+   */
   @Override
   public boolean isEmpty() {
     if (size == 0) {
@@ -110,6 +160,12 @@ public class MyArray<T> implements MyList<T> {
     return false;
   }
 
+  /**
+   * Removes element at given index.
+   * 
+   * @param index of element to be removed.
+   * @return object that was removed.
+   */
   @Override
   public T remove(int index) {
     T removed = array[index];
@@ -120,6 +176,12 @@ public class MyArray<T> implements MyList<T> {
     return removed;
   }
 
+  /**
+   * Removes given object from list.
+   * 
+   * @param object to be removed.
+   * @return object that was removed.
+   */
   @Override
   public T remove(Object object) {
     T removed = null;
@@ -134,17 +196,36 @@ public class MyArray<T> implements MyList<T> {
     return removed;
   }
 
+  /**
+   * Sets value of element to given value at given index.
+   * 
+   * @param index index of element to set value.
+   * @param element value to set.
+   * @return boolean if operation was successful.
+   */
   @Override
   public boolean set(int index, T element) {
     array[index] = element;
     return true;
   }
 
+  /**
+   * Returns number of elements in list.
+   * 
+   * @return int value of list size.
+   */
   @Override
   public int size() {
     return size;
   }
 
+  /**
+   * Creates a list from a section of elements for a list from a given index to a given index.
+   * 
+   * @param fromIndex starting index for new list
+   * @param toIndex ending index for new list
+   * @return list of the specified subset.
+   */
   @Override
   public T[] subList(int fromIndex, int toIndex) {
     T[] newArray = (T[]) new Object[toIndex - fromIndex + 1];
@@ -156,11 +237,23 @@ public class MyArray<T> implements MyList<T> {
     return newArray;
   }
 
+  /**
+   * Converts content of list to an array.
+   * 
+   * @return array of list elements
+   */
   @Override
   public T[] toArray() {
     return (T[]) array;
   }
 
+  /**
+   * Takes two elements at given indexes and exchanges their value.
+   * 
+   * @param position1 index of first element
+   * @param position2 index of second element
+   * @return boolean if operation was successful.
+   */
   @Override
   public boolean swap(int position1, int position2) {
     T first = array[position1];
@@ -170,6 +263,13 @@ public class MyArray<T> implements MyList<T> {
     return true;
   }
 
+  /**
+   * Moves elements in list by given number of elements. Indexes can move in a positive or negative
+   * direction.
+   * 
+   * @param positions number of indexes to move elements of list.
+   * @return boolean if operation was successful.
+   */
   @Override
   public boolean shift(int positions) {
     T[] newArray = (T[]) new Object[array.length];
@@ -200,10 +300,20 @@ public class MyArray<T> implements MyList<T> {
     return true;
   }
 
+  /**
+   * Gets size of array.
+   * 
+   * @return int of array size
+   */
   public int getSize() {
     return size;
   }
 
+  /**
+   * Provides a String representation of the items in the array
+   * 
+   * @return String representation of array
+   */
   public String toString() {
     String sorted = "[";
     for (int i = 0; i < size - 1; i++) {
@@ -213,10 +323,20 @@ public class MyArray<T> implements MyList<T> {
     return sorted;
   }
 
+  /**
+   * Performs Merge Sort on the array
+   * 
+   */
   public void mergeSort() {
     this.array = mergeSort(array);
   }
 
+  /**
+   * Sorts the array using Merge Sort
+   * 
+   * @param array to be sorted
+   * @return array that has been sorted
+   */
   public T[] mergeSort(T[] array) {
     if (array.length == 1) {
       return array;
@@ -268,6 +388,12 @@ public class MyArray<T> implements MyList<T> {
     return array;
   }
 
+  /**
+   * Sorts the array using Radix Sort
+   * 
+   * @param array to be sorted
+   * @return array that has been sorted
+   */
   public MyArray radixSort(MyArray array) {
     int digits = String.valueOf(array.get(0)).length();
     for (int i = 1; i < array.length; i++) {
@@ -293,6 +419,10 @@ public class MyArray<T> implements MyList<T> {
     return array;
   }
 
+  /**
+   * Sorts the array using Merge Sort
+   * 
+   */
   public void radixSort() {
     int digits = String.valueOf(array[0]).length();
     for (int i = 1; i < array.length; i++) {
@@ -320,6 +450,12 @@ public class MyArray<T> implements MyList<T> {
 
   }
 
+  /**
+   * Sorts the array using Bucket Sort
+   * 
+   * @param array to be sorted
+   * @return array that has been sorted
+   */
   public void bucketSort() {
     MyArray ten = new MyArray();
     MyArray hundred = new MyArray();
@@ -403,6 +539,10 @@ public class MyArray<T> implements MyList<T> {
 
   }
 
+  /**
+   * Sorts the Tree using Tree Sort
+   * 
+   */
   public void treeSort() {
     MyTree tree = new MyTree((Comparable) array[0]);
     for (int i = 1; i < array.length; i++) {
@@ -415,6 +555,10 @@ public class MyArray<T> implements MyList<T> {
 
   }
 
+  /**
+   * Sorts the Heap using Heap Sort
+   * 
+   */
   public void heapSort() {
     MyHeap heap = new MyHeap();
     heap.makeHeap((Comparable) array[0]);
@@ -429,6 +573,10 @@ public class MyArray<T> implements MyList<T> {
     }
   }
 
+  /**
+   * Sorts the array using Bubble Sort
+   * 
+   */
   public void bubbleSort() {
     boolean unordered = false;
     do {
@@ -444,6 +592,10 @@ public class MyArray<T> implements MyList<T> {
     } while (unordered);
   }
 
+  /**
+   * Sorts the array using Insertion Sort
+   * 
+   */
   public void insertionSort() {
     Comparable p = (Comparable) array[0];
     Comparable[] sorted = new Comparable[array.length];
@@ -467,10 +619,21 @@ public class MyArray<T> implements MyList<T> {
     this.array = (T[]) sorted;
   }
 
+  /**
+   * Performs Recursive Quick Sort on the array
+   * 
+   */
   public void quickSortRecur() {
     this.array = quickSortRecur(array, size);
   }
 
+  /**
+   * Sorts the array Recursively using Quick Sort
+   * 
+   * @param array to be sorted
+   * @param length of the array
+   * @return array that has been sorted
+   */
   public T[] quickSortRecur(T[] array, int length) {
     if (length == 1) {
       return array;
@@ -514,6 +677,12 @@ public class MyArray<T> implements MyList<T> {
     return array;
   }
 
+  /**
+   * Sorts the array Iteratively using Quick Sort
+   * 
+   * @param array to be sorted
+   * @return array that has been sorted
+   */
   public void quickSortIter(){
     int pivot = 0;
     int partition;
