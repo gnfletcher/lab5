@@ -11,7 +11,7 @@ import java.util.Queue;
  * @author Greg Fletcher
  * @author Sean O'Donnell
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes", "unchecked", "static-access"})
 public class MyTree {
 
   public static Node root;
@@ -19,6 +19,7 @@ public class MyTree {
   /**
    * Default constructor that creates an empty tree
    */
+
   public MyTree() {
     this.root = null;
 
@@ -30,6 +31,7 @@ public class MyTree {
    * 
    * @param Comparable value to become the root
    */
+
   public MyTree(Comparable value) {
     this.root = new Node(value);
 
@@ -42,6 +44,7 @@ public class MyTree {
    * @param Comparable value to be searched for
    * @return boolean if operation was successful.
    */
+
   public static boolean search(MyTree tree, Comparable value) {
     Node current = tree.root;
     while (current.getData().compareTo(value) != 0 && current.hasChildren()) {

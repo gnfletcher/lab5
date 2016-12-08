@@ -514,7 +514,7 @@ public class MyArray<T> implements MyList<T> {
     return array;
   }
 
-  public void quickSortIter() throws InterruptedException {
+  public void quickSortIter(){
     int pivot = 0;
     int partition = 1;
     boolean unordered = false;
@@ -529,7 +529,6 @@ public class MyArray<T> implements MyList<T> {
             partition++;
             unordered = true;
           } else {
-            System.out.println(partition);
             partition++;
             unordered = true;
           }
