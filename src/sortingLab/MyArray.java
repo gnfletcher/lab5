@@ -520,7 +520,7 @@ public class MyArray<T> implements MyList<T> {
     boolean unordered = false;
     do {
       unordered = false;
-      for (int i = pivot + 1; i < array.length - 1; i++) {
+      for (int i = pivot + 1; i < array.length; i++) {
         if (((Comparable) array[pivot]).compareTo(array[i]) > 0) {
           if (i - partition > 0) {
             T temp = array[i];
@@ -538,13 +538,14 @@ public class MyArray<T> implements MyList<T> {
       array[partition - 1] = array[pivot];
       array[pivot] = temp;
       if (partition < array.length) {
+        unordered = false;
         for (int i = 0; i < partition; i++) {
           if (((Comparable) array[i]).compareTo(array[i + 1]) > 0) {
             pivot = i;
             i = partition;
             partition = pivot + 1;
+            unordered = true;
           }
-          unordered = false;
         }
       }
     } while (unordered);
