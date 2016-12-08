@@ -7,7 +7,7 @@ public class driver {
   public static void main(String[] args){
     float startTime;
     float endTime;
-    int size = 20;
+    int size = 500;
     Random value = new Random();
     MyArray<Comparable> array = new MyArray(size);
     System.out.println("Build");

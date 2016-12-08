@@ -516,13 +516,14 @@ public class MyArray<T> implements MyList<T> {
 
   public void quickSortIter(){
     int pivot = 0;
-    int partition = 1;
+    int partition;
     boolean unordered = false;
     do {
       unordered = false;
-      for (int i = pivot + 1; i < array.length; i++) {
-        if (((Comparable) array[pivot]).compareTo(array[i]) > 0) {
-          if (i - partition > 0) {
+      partition = pivot;
+      for (int i = pivot + 1; i < array.length - 1; i++) {
+        if (((Comparable) array[pivot]).compareTo(array[i]) >= 0) {
+          if (((Comparable) array[pivot]).compareTo(array[i - 1]) < 0) {
             T temp = array[i];
             array[i] = array[partition];
             array[partition] = temp;
@@ -537,16 +538,14 @@ public class MyArray<T> implements MyList<T> {
       T temp = array[partition - 1];
       array[partition - 1] = array[pivot];
       array[pivot] = temp;
-      if (partition < array.length) {
-        unordered = false;
+      if (partition < array.length - 1) {
         for (int i = 0; i < partition; i++) {
           if (((Comparable) array[i]).compareTo(array[i + 1]) > 0) {
             pivot = i;
-            i = partition;
-            partition = pivot + 1;
-            unordered = true;
+            break;
           }
         }
+        pivot = partition;
       }
     } while (unordered);
 
