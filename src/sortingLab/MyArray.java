@@ -535,8 +535,8 @@ public class MyArray<T> implements MyList<T> {
           }
         }
       }
-      T temp = array[partition - 1];
-      array[partition - 1] = array[pivot];
+      T temp = array[partition];
+      array[partition] = array[pivot];
       array[pivot] = temp;
       if (partition < array.length - 1) {
         for (int i = 0; i < partition; i++) {
