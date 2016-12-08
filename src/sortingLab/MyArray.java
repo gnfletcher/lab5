@@ -216,7 +216,7 @@ public class MyArray<T> implements MyList<T> {
   public void mergeSort() {
     this.array = mergeSort(array);
   }
-  
+
   public T[] mergeSort(T[] array) {
     if (array.length == 1) {
       return array;
@@ -239,7 +239,7 @@ public class MyArray<T> implements MyList<T> {
       second[i - mid] = array[i];
     }
     first = mergeSort(first);
-    second = mergeSort( second);
+    second = mergeSort(second);
     int j = 0;
     int k = 0;
     int i = 0;
@@ -319,6 +319,7 @@ public class MyArray<T> implements MyList<T> {
     }
 
   }
+
   public void bucketSort() {
     MyArray ten = new MyArray();
     MyArray hundred = new MyArray();
@@ -427,7 +428,7 @@ public class MyArray<T> implements MyList<T> {
       i++;
     }
   }
-  
+
   public void bubbleSort() {
     boolean unordered = false;
     do {
@@ -442,7 +443,7 @@ public class MyArray<T> implements MyList<T> {
       }
     } while (unordered);
   }
-  
+
   public void insertionSort() {
     Comparable p = (Comparable) array[0];
     Comparable[] sorted = new Comparable[array.length];
@@ -465,7 +466,7 @@ public class MyArray<T> implements MyList<T> {
     }
     this.array = (T[]) sorted;
   }
-  
+
   public void quickSortRecur() {
     this.array = quickSortRecur(array, size);
   }
@@ -513,31 +514,41 @@ public class MyArray<T> implements MyList<T> {
     return array;
   }
 
-  public void quickSortIter() {
+  public void quickSortIter() throws InterruptedException {
     int pivot = 0;
-    int partition = 0;
-    int j = 1;
-    int k = 0;
-    T[] left = (T[]) new Object[length];
-    T[] right = (T[]) new Object[length];
-    for (int i = pivot + 1; i < array.length; i++) {
-      if (((Comparable) array[pivot]).compareTo(array[i]) > 0) {
-        left[j] = array[i];
-        j++;
-      } else {
-        right[k] = array[i];
-        k++;
-      }
-    }
-    while (pivot < array.length - 1) {
-      left = (T[]) new Object[length];
-      right = (T[]) new Object[length];
-      for (int i = pivot + 1; i < array.length; i++) {
-        if (((Comparable) array[pivot]).compareTo(array[i]) < 0) {
-          
+    int partition = 1;
+    boolean unordered = false;
+    do {
+      unordered = false;
+      for (int i = pivot + 1; i < array.length - 1; i++) {
+        if (((Comparable) array[pivot]).compareTo(array[i]) > 0) {
+          if (i - partition > 0) {
+            T temp = array[i];
+            array[i] = array[partition];
+            array[partition] = temp;
+            partition++;
+            unordered = true;
+          } else {
+            System.out.println(partition);
+            partition++;
+            unordered = true;
+          }
         }
-        
       }
-    }
+      T temp = array[partition - 1];
+      array[partition - 1] = array[pivot];
+      array[pivot] = temp;
+      if (partition < array.length) {
+        for (int i = 0; i < partition; i++) {
+          if (((Comparable) array[i]).compareTo(array[i + 1]) > 0) {
+            pivot = i;
+            i = partition;
+            partition = pivot + 1;
+          }
+          unordered = false;
+        }
+      }
+    } while (unordered);
+
   }
 }
