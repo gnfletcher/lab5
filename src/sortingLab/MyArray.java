@@ -279,12 +279,10 @@ public class MyArray<T> implements MyList<T> {
     while (i <= digits) {
       MyArray bucket = new MyArray();
       int j = 0;
-      int k = 0;
       while (j < 10) {
         for (int l = 0; l < array.size; l++) {
           if ((int) array.get(l) % (int) (Math.pow(10, i)) / (int) (Math.pow(10, i - 1)) == j) {
             bucket.add(array.get(l));
-            k++;
           }
         }
         j++;
