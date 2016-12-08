@@ -523,7 +523,7 @@ public class MyArray<T> implements MyList<T> {
       partition = pivot;
       for (int i = pivot + 1; i < array.length - 1; i++) {
         if (((Comparable) array[pivot]).compareTo(array[i]) >= 0) {
-          if (((Comparable) array[pivot]).compareTo(array[i - 1]) < 0) {
+          if (i - partition > 1) {
             T temp = array[i];
             array[i] = array[partition];
             array[partition] = temp;
@@ -538,14 +538,13 @@ public class MyArray<T> implements MyList<T> {
       T temp = array[partition];
       array[partition] = array[pivot];
       array[pivot] = temp;
-      if (partition < array.length - 1) {
+      if (partition < array.length) {
         for (int i = 0; i < partition; i++) {
           if (((Comparable) array[i]).compareTo(array[i + 1]) > 0) {
             pivot = i;
             break;
           }
         }
-        pivot = partition;
       }
     } while (unordered);
 
